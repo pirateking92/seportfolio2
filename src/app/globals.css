@@ -6,6 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --font-headingFont: 'Indie Flower', cursive;
+  --font-bodyFont: 'Alegreya', cursive;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,7 +21,7 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
+      to bottom right,
       transparent,
       rgb(var(--background-end-rgb))
     )
@@ -29,5 +31,8 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .bg-black-to-navy {
+    background-image: linear-gradient(to bottom right, #000000, #191932);
   }
 }

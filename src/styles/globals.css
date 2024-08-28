@@ -1,0 +1,37 @@
+@tailwind base;
+
+/* Write your own custom base styles here */
+
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+/* Write you own custom component styles here */
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* The @apply directive below in Tailwind CSS only works
+with utility classes provided by Tailwind out of the box. To use custom classes, especially for gradients, 
+you need to define them within the @layer directive as specified by the error message. */
+@layer utilities {
+  .bg-black-to-navy {
+    background-image: linear-gradient(to bottom right, #000000, #191932);
+  }
+}
+
+/* Your own custom utilities */
+
+body {
+  @apply font-sans bg-black-to-navy;
+
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+:root {
+  --font-headingFont: 'Indie Flower', cursive;
+  --font-bodyFont: 'Alegreya', cursive;
+}
