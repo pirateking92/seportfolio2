@@ -1,29 +1,17 @@
-// app/about/page.tsx
+// app/components/AboutSection.tsx
 import Image from "next/image";
-import client from "../../apollo-client";
-import { GET_ABOUT_PAGE } from "../lib/queries";
 
-async function getAboutPageData() {
-  const { data } = await client.query({
-    query: GET_ABOUT_PAGE,
-  });
-
-  return {
-    title: data.page.title,
-    content: data.page.content,
-    profilePicture:
-      data.page.profilePicture?.profilePicture?.node?.sourceUrl || "",
-  };
+interface AboutProps {
+  title: string;
+  content: string;
+  profilePicture: string;
 }
 
-export async function generateMetadata() {
-  const { title } = await getAboutPageData();
-  return { title: `About - ${title}` };
-}
-
-export default async function About() {
-  const { title, content, profilePicture } = await getAboutPageData();
-
+const AboutSection: React.FC<AboutProps> = ({
+  title,
+  content,
+  profilePicture,
+}) => {
   return (
     <div className="container mx-auto px-4">
       <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8">
@@ -52,4 +40,6 @@ export default async function About() {
       </div>
     </div>
   );
-}
+};
+
+export default AboutSection;
