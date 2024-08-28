@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { GET_CV_PAGE } from "../../lib/queries";
 import client from "../../../apollo-client";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Sepy Baghaei's CV",
