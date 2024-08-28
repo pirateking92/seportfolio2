@@ -6,8 +6,6 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --font-headingFont: 'Indie Flower', cursive;
-  --font-bodyFont: 'Alegreya', cursive;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +17,7 @@
 }
 
 body {
+  font-family: var(--font-bodyfont), sans-serif; /* this applies the body font */
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom right,
@@ -26,6 +25,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headingFont), cursive; /* applies the heading font */
 }
 
 @layer utilities {
