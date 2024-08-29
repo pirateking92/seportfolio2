@@ -16,9 +16,9 @@ const bodyFont = Alegreya({
 });
 
 export const metadata = {
-  title: "Default Title",
+  title: "Sepy Baghaei",
   icons: {
-    icon: "/icon.jpg",
+    icon: "2.png",
   },
 };
 
