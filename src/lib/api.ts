@@ -4,8 +4,9 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
   const headers = { "Content-Type": "application/json" };
 
   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers["Authorization"] =
-      `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`;
+    headers[
+      "Authorization"
+    ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`;
   }
 
   // WPGraphQL Plugin must be enabled
@@ -38,7 +39,7 @@ export async function getPreviewPost(id, idType = "DATABASE_ID") {
     }`,
     {
       variables: { id, idType },
-    },
+    }
   );
   return data.post;
 }
@@ -94,7 +95,7 @@ export async function getAllPostsForHome(preview) {
         onlyEnabled: !preview,
         preview,
       },
-    },
+    }
   );
 
   return data?.posts;
@@ -189,7 +190,7 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
         id: isDraft ? postPreview.id : slug,
         idType: isDraft ? "DATABASE_ID" : "SLUG",
       },
-    },
+    }
   );
 
   // Draft posts may not have an slug
