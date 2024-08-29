@@ -31,6 +31,10 @@ export async function generateMetadata({
 }: {
   params: { uri?: string[] };
 }) {
+  if (!params.uri) {
+    return null; // or a default component
+  }
+
   const uri = params?.uri?.length ? `/${params.uri.join("/")}` : "/";
 
   const { data } = await client.query({
