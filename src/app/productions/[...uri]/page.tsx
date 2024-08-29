@@ -39,7 +39,7 @@ export async function generateMetadata({
   });
 
   if (!data || !data.page) {
-    return { title: "Page Not Found" };
+    return { title: "Sepy Baghaei" };
   }
 
   return {
