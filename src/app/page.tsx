@@ -8,6 +8,7 @@ import About from "../components/AboutSection";
 import Name from "../components/Name";
 import Navbar from "../components/Navbar";
 import Gallery from "../components/Gallery";
+import Contact from "@/components/Contact";
 
 interface MediaItem {
   sourceUrl: string;
@@ -94,6 +95,9 @@ export default async function HomePage() {
             title={title}
             content={content}
           />
+          <div className="items-center p-24">
+            <Contact />
+          </div>
           <div className="py-20 my-auto mt-20">
             <Gallery mediaItems={mediaItems} />
           </div>

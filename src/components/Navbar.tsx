@@ -62,12 +62,14 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <nav ref={navbarRef} className="fixed top-0 left-0 right-0 z-10">
+    <nav ref={navbarRef} className="fixed top-0 left-0 right-0 z-10 bg-current">
       <div className="flex container lg:py-4 items-center justify-between mx-auto px-4 py-2">
         {/* Logo */}
-        <Link href={"/"} className="text-xl md:text-3xl text-white">
-          Sepy Baghaei | Director
-        </Link>
+        <h1>
+          <Link href={"/"} className="text-xl md:text-3xl text-white">
+            Sepy Baghaei | Director
+          </Link>
+        </h1>
         {/* Desktop Menu */}
         <div className="hidden md:block">
           <ul className=" text-white flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">

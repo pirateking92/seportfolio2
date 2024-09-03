@@ -1,7 +1,8 @@
 import client from "../../../../apollo-client";
 import PageContent from "@/components/PageContent";
 import Navbar from "@/components/Navbar";
-import { GET_ALL_URIS, GET_PAGE_CONTENT, GET_PAGE_IMAGE } from "@/lib/queries";
+import { GET_PAGE_CONTENT, GET_PAGE_IMAGE } from "@/lib/queries";
+import { metadata as globalMetadata } from "@/app/layout";
 
 interface PageContentProps {
   id: string;
@@ -39,6 +40,7 @@ export async function generateMetadata({
 
   return {
     title: `${data.page.title} | Sepy Baghaei`,
+    ...globalMetadata,
   };
 }
 
