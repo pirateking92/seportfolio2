@@ -19,7 +19,7 @@ export async function generateStaticParams() {
   const staticParams = data.pages.nodes
     .filter((page: { uri: string }) => page.uri.startsWith("productions/"))
     .map((page: { uri: string }) => ({
-      uri: page.uri.split("/").filter(Boolean),
+      uri: page.uri.split("/").filter(Boolean).slice(1),
     }));
   return [{ uri: [] }, ...staticParams];
 }
