@@ -1,12 +1,7 @@
-// app/productions/[...uri]/page.tsx
 import client from "../../../../apollo-client";
 import PageContent from "@/components/PageContent";
 import Navbar from "@/components/Navbar";
-import {
-  GET_ALL_URIS,
-  GET_PAGE_CONTENT,
-  GET_PAGE_IMAGE,
-} from "../../../lib/queries";
+import { GET_ALL_URIS, GET_PAGE_CONTENT, GET_PAGE_IMAGE } from "@/lib/queries";
 
 interface PageContentProps {
   id: string;
@@ -20,22 +15,40 @@ export async function generateStaticParams() {
   const { data } = await client.query({
     query: GET_ALL_URIS,
   });
-
-  return data.pages.nodes.map((page: { uri: string }) => ({
-    uri: page.uri.split("/").filter(Boolean),
-  }));
+  return data.pages.nodes
+    .filter((page: { uri: string }) => page.uri.startsWith(""))
+    .map((page: { uri: string }) => ({
+      uri: page.uri.split("/").slice(1), // Remove 'productions' from the beginning
+    }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { uri?: string[] };
+  params: { uri: string[] };
 }) {
-  if (!params.uri) {
-    return null; // or a default component
+  const uri = `${params.uri.join("/")}`;
+  const { data } = await client.query({
+    query: GET_PAGE_CONTENT,
+    variables: { id: uri },
+  });
+
+  if (!data || !data.page) {
+    return { title: "Production Not Found" };
   }
 
-  const uri = params?.uri?.length ? `/${params.uri.join("/")}` : "/";
+  return {
+    title: `${data.page.title} | Sepy Baghaei`,
+  };
+}
+
+export default async function ProductionPage({
+  params,
+}: {
+  params: { uri: string[] };
+}) {
+  const uri = `${params.uri.join("/")}`;
+  console.log(`Fetching data for URI: ${uri}`); // Debug log
 
   const { data } = await client.query({
     query: GET_PAGE_CONTENT,
@@ -43,33 +56,7 @@ export async function generateMetadata({
   });
 
   if (!data || !data.page) {
-    return { title: "Sepy Baghaei" };
-  }
-
-  return {
-    title: data.page.title,
-  };
-}
-
-export default async function ProductionPage({
-  params,
-}: {
-  params: { uri?: string[] };
-}) {
-  const uri = params?.uri?.length ? `/${params.uri.join("/")}` : "/";
-
-  // Ensure `uri` is in the correct format
-  const formattedUri = uri.startsWith("/") ? uri.slice(1) : uri;
-
-  console.log(`Fetching data for URI: ${formattedUri}`); // Debug log
-
-  const { data } = await client.query({
-    query: GET_PAGE_CONTENT,
-    variables: { id: formattedUri },
-  });
-
-  if (!data || !data.page) {
-    return <div>Page Not Found</div>;
+    return <div>Production Not Found</div>;
   }
 
   const { data: imageData } = await client.query({
@@ -77,14 +64,12 @@ export default async function ProductionPage({
     variables: { captionSearch: data.page.title },
   });
 
-  const firstImage = imageData.mediaItems.nodes[0];
-
   const pageProps: PageContentProps = {
     id: data.page.id,
     pageContent: data.page.content,
     pageTitle: data.page.title,
     uri: data.page.uri,
-    imageData: firstImage ? firstImage.sourceUrl : null,
+    imageData: imageData.mediaItems.nodes[0]?.sourceUrl || null,
   };
 
   return (

@@ -15,12 +15,12 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   {
-    title: "About",
+    title: "Press",
     path: "/",
   },
   {
     title: "CV",
-    path: "/cv",
+    path: "/SEPY BAGHAEI CV 2024-1.png",
   },
   {
     title: "Productions",
@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
       <div className="flex container lg:py-4 items-center justify-between mx-auto px-4 py-2">
         {/* Logo */}
         <Link href={"/"} className="text-xl md:text-3xl text-white">
-          Sepy
+          Sepy Baghaei | Director
         </Link>
         {/* Desktop Menu */}
         <div className="hidden md:block">

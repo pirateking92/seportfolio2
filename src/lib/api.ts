@@ -210,3 +210,16 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
 
   return data;
 }
+
+export async function fetchMediaItems() {
+  const res = await fetch("/api/productions");
+  if (!res.ok) {
+    throw new Error("Failed to fetch media items");
+  }
+  return res.json();
+}
+
+export async function fetchMediaItemBySlug(slug: string) {
+  const items = await fetchMediaItems();
+  return items.find((item: any) => item.slug === slug);
+}
