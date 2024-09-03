@@ -14,6 +14,57 @@ interface MediaItem {
   slug: string;
 }
 
+async function fetchMediaItems(): Promise<MediaItem[]> {
+  let allMediaItems: MediaItem[] = [];
+  let hasNextPage = true;
+  let endCursor: string | null = null;
+
+  try {
+    while (hasNextPage) {
+      const { data: mediaData } = await client.query({
+        query: GET_ALL_MEDIA_ITEMS,
+        variables: { first: 10, after: endCursor },
+      });
+
+      if (mediaData && mediaData.mediaItems) {
+        const fetchedMediaItems =
+          mediaData.mediaItems.nodes?.map((node: any) => {
+            return {
+              sourceUrl: node.sourceUrl,
+              caption: node.caption || "",
+              slug: createSlug(node.caption || "", node.id),
+            };
+          }) || [];
+
+        allMediaItems = [...allMediaItems, ...fetchedMediaItems];
+
+        hasNextPage = mediaData.mediaItems.pageInfo.hasNextPage;
+        endCursor = mediaData.mediaItems.pageInfo.endCursor;
+      } else {
+        hasNextPage = false;
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching media items:", error);
+    throw new Error("Failed to fetch media items");
+  }
+
+  return allMediaItems.filter((item) => item.caption);
+}
+
+function createSlug(caption: string, id: string): string {
+  if (!caption) {
+    return id; // Fallback to ID if caption is missing
+  }
+  const strippedCaption = caption.replace(/<[^>]+>/g, "");
+  const slug = strippedCaption
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+  return slug; // Append ID to ensure uniqueness
+}
+
 export default function GalleryPage() {
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -75,55 +126,4 @@ export default function GalleryPage() {
       </main>
     </div>
   );
-}
-
-async function fetchMediaItems(): Promise<MediaItem[]> {
-  let allMediaItems: MediaItem[] = [];
-  let hasNextPage = true;
-  let endCursor: string | null = null;
-
-  try {
-    while (hasNextPage) {
-      const { data: mediaData } = await client.query({
-        query: GET_ALL_MEDIA_ITEMS,
-        variables: { first: 10, after: endCursor },
-      });
-
-      if (mediaData && mediaData.mediaItems) {
-        const fetchedMediaItems =
-          mediaData.mediaItems.nodes?.map((node: any) => {
-            return {
-              sourceUrl: node.sourceUrl,
-              caption: node.caption || "",
-              slug: createSlug(node.caption || "", node.id),
-            };
-          }) || [];
-
-        allMediaItems = [...allMediaItems, ...fetchedMediaItems];
-
-        hasNextPage = mediaData.mediaItems.pageInfo.hasNextPage;
-        endCursor = mediaData.mediaItems.pageInfo.endCursor;
-      } else {
-        hasNextPage = false;
-      }
-    }
-  } catch (error) {
-    console.error("Error fetching media items:", error);
-    throw new Error("Failed to fetch media items");
-  }
-
-  return allMediaItems.filter((item) => item.caption);
-}
-
-function createSlug(caption: string, id: string): string {
-  if (!caption) {
-    return id; // Fallback to ID if caption is missing
-  }
-  const strippedCaption = caption.replace(/<[^>]+>/g, "");
-  const slug = strippedCaption
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-  return slug; // Append ID to ensure uniqueness
 }

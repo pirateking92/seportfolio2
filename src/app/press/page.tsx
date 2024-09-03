@@ -1,8 +1,12 @@
-import client from "../../../../apollo-client";
+import client from "../../../apollo-client";
 import PageContent from "@/components/PageContent";
 import Navbar from "@/components/Navbar";
-import { GET_ALL_URIS, GET_PAGE_CONTENT, GET_PAGE_IMAGE } from "@/lib/queries";
-import { useRouter } from "next/router";
+import {
+  GET_ALL_MEDIA_ITEMS,
+  GET_PAGE_CONTENT,
+  GET_PAGE_IMAGE,
+} from "@/lib/queries";
+import { metadata as globalMetadata } from "@/app/layout";
 
 interface PageContentProps {
   id: string;
@@ -12,63 +16,43 @@ interface PageContentProps {
   imageData: string | null;
 }
 
-export async function generateStaticParams() {
-  const { data } = await client.query({
-    query: GET_ALL_URIS,
-  });
-
-  const staticParams = data.pages.nodes
-    .filter((page: { uri: string }) => page.uri.startsWith(""))
-    .map((page: { uri: string }) => ({
-      uri: page.uri.split("/").slice(1),
-    }));
-
-  return [{ uri: [] }, ...staticParams];
-  // return data.pages.nodes
-  //   .filter((page: { uri: string }) => page.uri.startsWith(""))
-  //   .map((page: { uri: string }) => ({
-  //     uri: page.uri.split("/").slice(1), // Remove 'productions' from the beginning
-  //   }));
+interface MediaItem {
+  soureUrl: string;
+  caption: string;
+  slug: string;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { uri: string[] };
-}) {
-  const uri = params.uri.length > 0 ? `${params.uri.join("/")}` : "";
+export async function generateMetadata() {
   const { data } = await client.query({
     query: GET_PAGE_CONTENT,
-    variables: { id: uri },
+    variables: { id: "press" },
   });
 
   if (!data || !data.page) {
-    return { title: "Production Not Found" };
+    return { title: "Press | Sepy Baghaei" };
   }
 
   return {
     title: `${data.page.title} | Sepy Baghaei`,
+    ...globalMetadata,
   };
 }
 
-export default async function ProductionPage({
+export default async function PressPage({
   params,
 }: {
   params: { uri: string[] };
 }) {
-  const uri = params.uri.length > 0 ? `${params.uri.join("/")}` : "";
+  const uri = `${params.uri}`;
   console.log(`Fetching data for URI: ${uri}`); // Debug log
 
   const { data } = await client.query({
     query: GET_PAGE_CONTENT,
-    variables: { id: uri },
+    variables: { id: "press" },
   });
 
   if (!data || !data.page) {
-    if (uri === "") {
-      return <div>Productions Are Here</div>;
-    }
-    return <div>Production Not Found</div>;
+    return <div>Page Not Found</div>;
   }
 
   const { data: imageData } = await client.query({

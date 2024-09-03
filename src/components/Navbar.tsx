@@ -16,7 +16,7 @@ interface NavLink {
 const navLinks: NavLink[] = [
   {
     title: "Press",
-    path: "/",
+    path: "/press",
   },
   {
     title: "CV",
