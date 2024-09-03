@@ -16,19 +16,12 @@ export async function generateStaticParams() {
   const { data } = await client.query({
     query: GET_ALL_URIS,
   });
-
   const staticParams = data.pages.nodes
-    .filter((page: { uri: string }) => page.uri.startsWith(""))
+    .filter((page: { uri: string }) => page.uri.startsWith("productions/"))
     .map((page: { uri: string }) => ({
-      uri: page.uri.split("/").slice(1),
+      uri: page.uri.split("/").filter(Boolean),
     }));
-
   return [{ uri: [] }, ...staticParams];
-  // return data.pages.nodes
-  //   .filter((page: { uri: string }) => page.uri.startsWith(""))
-  //   .map((page: { uri: string }) => ({
-  //     uri: page.uri.split("/").slice(1), // Remove 'productions' from the beginning
-  //   }));
 }
 
 export async function generateMetadata({
@@ -56,12 +49,16 @@ export default async function ProductionPage({
 }: {
   params: { uri: string[] };
 }) {
-  const uri = params.uri.length > 0 ? `${params.uri.join("/")}` : "";
+  const uri = params.uri.join("/");
   console.log(`Fetching data for URI: ${uri}`); // Debug log
 
+  if (uri === "productions") {
+    // Handle the root /productions page
+    return <div>Productions Are Here</div>;
+  }
   const { data } = await client.query({
     query: GET_PAGE_CONTENT,
-    variables: { id: uri },
+    variables: { id: `productions/${uri}` },
   });
 
   if (!data || !data.page) {
