@@ -65,7 +65,7 @@ function createSlug(caption: string, id: string): string {
   return slug; // Append ID to ensure uniqueness
 }
 
-export default function GalleryPage() {
+export default function ProductionPage() {
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

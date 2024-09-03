@@ -17,14 +17,6 @@ const nextConfig = {
       ],
     },
     trailingSlash: true,
-    async rewrites() {
-      return [
-        {
-          source: '/productions',
-          destination: '/productions/',
-        },
-      ];
-    },
-  };
+  }
   
-  module.exports = nextConfig;
+module.exports = nextConfig;
