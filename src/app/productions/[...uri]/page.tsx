@@ -2,7 +2,6 @@ import client from "../../../../apollo-client";
 import PageContent from "@/components/PageContent";
 import Navbar from "@/components/Navbar";
 import { GET_ALL_URIS, GET_PAGE_CONTENT, GET_PAGE_IMAGE } from "@/lib/queries";
-import { useRouter } from "next/router";
 
 interface PageContentProps {
   id: string;
@@ -16,12 +15,11 @@ export async function generateStaticParams() {
   const { data } = await client.query({
     query: GET_ALL_URIS,
   });
-  const staticParams = data.pages.nodes
-    .filter((page: { uri: string }) => page.uri.startsWith("productions/"))
+  return data.pages.nodes
+    .filter((page: { uri: string }) => page.uri.startsWith(""))
     .map((page: { uri: string }) => ({
-      uri: page.uri.split("/").filter(Boolean).slice(1),
+      uri: page.uri.split("/").slice(1), // Remove 'productions' from the beginning
     }));
-  return [{ uri: [] }, ...staticParams];
 }
 
 export async function generateMetadata({
@@ -29,7 +27,7 @@ export async function generateMetadata({
 }: {
   params: { uri: string[] };
 }) {
-  const uri = params.uri.length > 0 ? `${params.uri.join("/")}` : "";
+  const uri = `/${params.uri.join("/")}`;
   const { data } = await client.query({
     query: GET_PAGE_CONTENT,
     variables: { id: uri },
@@ -49,22 +47,15 @@ export default async function ProductionPage({
 }: {
   params: { uri: string[] };
 }) {
-  const uri = params.uri.join("/");
+  const uri = `${params.uri.join("/")}`;
   console.log(`Fetching data for URI: ${uri}`); // Debug log
 
-  if (uri === "productions") {
-    // Handle the root /productions page
-    return <div>Productions Are Here</div>;
-  }
   const { data } = await client.query({
     query: GET_PAGE_CONTENT,
-    variables: { id: `productions/${uri}` },
+    variables: { id: uri },
   });
 
   if (!data || !data.page) {
-    if (uri === "") {
-      return <div>Productions Are Here</div>;
-    }
     return <div>Production Not Found</div>;
   }
 
