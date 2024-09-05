@@ -1,3 +1,5 @@
+"use-client";
+
 import client from "../../apollo-client";
 import {
   GET_SITE_SETTINGS,
@@ -9,6 +11,7 @@ import Name from "../components/Name";
 import Navbar from "../components/Navbar";
 import Gallery from "../components/Gallery";
 import Contact from "@/components/Contact";
+import FadeInMotion from "@/components/SmokeFadeIn";
 
 interface MediaItem {
   sourceUrl: string;
@@ -95,9 +98,11 @@ export default async function HomePage() {
             title={title}
             content={content}
           />
-          <div>
+
+          <div className="p-10">
             <Contact />
           </div>
+
           <div className="py-20 my-auto mt-20">
             <Gallery mediaItems={mediaItems} />
           </div>

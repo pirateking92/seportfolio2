@@ -3,6 +3,7 @@ import PageContent from "@/components/PageContent";
 import Navbar from "@/components/Navbar";
 import { GET_PAGE_CONTENT, GET_PAGE_IMAGE } from "@/lib/queries";
 import { metadata as globalMetadata } from "@/app/layout";
+import SmokeFadeIn from "@/components/SmokeFadeIn";
 
 interface PageContentProps {
   id: string;
@@ -77,9 +78,11 @@ export default async function ProductionPage({
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-      <div className="pt-16 md:pt-20">
-        <PageContent {...pageProps} />
-      </div>
+      <SmokeFadeIn>
+        <div className="pt-16 md:pt-20">
+          <PageContent {...pageProps} />
+        </div>
+      </SmokeFadeIn>
       {pageProps.imageData && (
         <div
           className="absolute inset-0 bg-cover bg-bottom opacity-20 pointer-events-none"
