@@ -12,15 +12,15 @@ const SmokeFadeIn = ({ children }: { children: ReactNode }) => {
   const smokeVariants = {
     hidden: {
       opacity: 0,
-      filter: "blur(10px)",
-      transform: "translateY(20px)",
+      filter: "blur(5px)",
+      transform: "translateY(10px)",
     },
     visible: {
       opacity: 1,
       filter: "blur(0px)",
       transform: "translateY(0px)",
       transition: {
-        duration: 1.2,
+        duration: 0.6,
         ease: [0.25, 0.1, 0.25, 1], // Custom easing function
       },
     },

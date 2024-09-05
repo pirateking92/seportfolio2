@@ -13,17 +13,6 @@ interface PageContentProps {
   imageData: string;
 }
 
-// export async function generateStaticParams() {
-//   const { data } = await client.query({
-//     query: GET_ALL_URIS,
-//   });
-//   return data.pages.nodes
-//     .filter((page: { uri: string }) => page.uri.startsWith(""))
-//     .map((page: { uri: string }) => ({
-//       uri: page.uri.split("/").slice(1).concat(""),
-//     }));
-// }
-
 export async function generateMetadata({
   params,
 }: {

@@ -20,8 +20,8 @@ const Contact: FC = () => {
 
   return (
     <SmokeFadeIn>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="text-center text-xl text-white p-5">Contact</div>
+      <form className="px-20" onSubmit={handleSubmit(onSubmit)}>
+        <div className="text-center text-5xl text-white p-5 px">Contact</div>
         <div className="mb-5">
           <label
             htmlFor="name"

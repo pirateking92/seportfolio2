@@ -70,11 +70,9 @@ const Navbar: React.FC = () => {
     >
       <div className="flex container lg:py-4 px-3 items-center justify-between mx-auto py-2">
         {/* Logo */}
-        <h1>
-          <Link href={"/"} className="text-xl md:text-3xl text-white">
-            Sepy Baghaei | Director
-          </Link>
-        </h1>
+        <Link href={"/"} className="text-xl md:text-3xl text-white">
+          Sepy Baghaei | Director
+        </Link>
         {/* Desktop Menu */}
         <div className="hidden md:block">
           <ul className=" text-white flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">

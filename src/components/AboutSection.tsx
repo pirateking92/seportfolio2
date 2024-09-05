@@ -18,7 +18,7 @@ function AboutSection({ title, content, profilePicture }) {
         <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8">
           {/* Text content */}
           <div className="flex-1 mb-8 md:mb-0">
-            <h1 className="font-bodyFont text-4xl text-white font-bold mb-4 text-center lg:text-left">
+            <h1 className="font-bodyFont text-4xl text-white mb-4 text-center lg:text-left">
               {title}
             </h1>
             <div
