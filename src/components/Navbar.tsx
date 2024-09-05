@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
       ref={navbarRef}
       className="fixed top-0 left-0 right-0 z-10 bg-black bg-opacity-100"
     >
-      <div className="flex container lg:py-4 items-center justify-between mx-auto py-2">
+      <div className="flex container lg:py-4 px-3 items-center justify-between mx-auto py-2">
         {/* Logo */}
         <h1>
           <Link href={"/"} className="text-xl md:text-3xl text-white">
@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
         <div className="md:hidden">
           <button
             onClick={() => setNavbarOpen(!navbarOpen)}
-            className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white bg-opacity-50"
+            className="flex items-center px-4 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white bg-opacity-50"
           >
             {navbarOpen ? (
               <XMarkIcon className="h-5 w-5" />
