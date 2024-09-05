@@ -95,7 +95,7 @@ export default async function HomePage() {
             title={title}
             content={content}
           />
-          <div className="items-center p-24">
+          <div>
             <Contact />
           </div>
           <div className="py-20 my-auto mt-20">
