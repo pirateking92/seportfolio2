@@ -11,6 +11,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 interface NavLink {
   title: string;
   path: string;
+  openInNewTab?: boolean;
 }
 
 const navLinks: NavLink[] = [
@@ -20,7 +21,8 @@ const navLinks: NavLink[] = [
   },
   {
     title: "CV",
-    path: "/SEPY BAGHAEI CV 2024-1.png",
+    path: "/SEPY BAGHAEI CV 2024.pdf",
+    openInNewTab: true,
   },
   {
     title: "Productions",
@@ -78,7 +80,11 @@ const Navbar: React.FC = () => {
           <ul className=" text-white flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
             {navLinks.map((link, index) => (
               <li key={index}>
-                <NavLink href={link.path} title={link.title} />
+                <NavLink
+                  href={link.path}
+                  title={link.title}
+                  openInNewTab={link.openInNewTab}
+                />
               </li>
             ))}
           </ul>

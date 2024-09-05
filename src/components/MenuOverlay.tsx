@@ -6,6 +6,7 @@ import NavLink from "./NavLink";
 interface NavLinkProps {
   title: string;
   path: string;
+  openInNewTab?: boolean;
 }
 
 interface MenuOverlayProps {
@@ -16,7 +17,11 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({ links }) => (
   <ul className="font-headingFont flex flex-col py-4 items-center bg-slate-900">
     {links.map((link, index) => (
       <li key={index}>
-        <NavLink href={link.path} title={link.title} />
+        <NavLink
+          href={link.path}
+          title={link.title}
+          openInNewTab={link.openInNewTab}
+        />
       </li>
     ))}
   </ul>
