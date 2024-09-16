@@ -83,7 +83,7 @@ export const GET_PAGE_IMAGE = gql`
 // Individual production page content query
 export const GET_PAGE_CONTENT = gql`
   query GetPageContent($id: ID!) {
-    page(id: $id, idType: URI) {
+    page(id: $id, idType: URI, asPreview: true) {
       id
       content
       title

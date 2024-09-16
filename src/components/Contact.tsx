@@ -64,7 +64,7 @@ const Contact: FC = () => {
             {...register("message", { required: true })}
           ></textarea>
         </div>
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center">
           <button className="items-center hover:shadow-form rounded-md bg-purple-500 py-3 px-8 text-base font-semibold text-white outline-none">
             Submit
           </button>

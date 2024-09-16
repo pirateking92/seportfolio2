@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
       <div className="flex container lg:py-4 px-3 items-center justify-between mx-auto py-2">
         {/* Logo */}
         <Link href={"/"} className="text-xl md:text-3xl text-white">
-          Sepy Baghaei | Director
+          Sepy Baghaei | Director & Playwright
         </Link>
         {/* Desktop Menu */}
         <div className="hidden md:block">
