@@ -1,3 +1,6 @@
+import client from "../../apollo-client";
+import { GET_ALL_MEDIA_ITEMS } from "./queries";
+
 const API_URL = process.env.WORDPRESS_API_URL;
 
 async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
@@ -210,16 +213,58 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
 
   return data;
 }
+interface MediaItem {
+  sourceUrl: string;
+  caption: string;
+  slug: string;
+}
+// this was originally in the productions/page.tsx
+// moved here for cleanliness, and will also be able to use it for gallery things later on
 
-export async function fetchMediaItems() {
-  const res = await fetch("/api/productions");
-  if (!res.ok) {
+export async function fetchMediaItems(): Promise<MediaItem[]> {
+  let allMediaItems: MediaItem[] = [];
+  let hasNextPage = true;
+  let endCursor: string | null = null;
+
+  try {
+    while (hasNextPage) {
+      const { data: mediaData } = await client.query({
+        query: GET_ALL_MEDIA_ITEMS,
+        variables: { first: 10, after: endCursor },
+      });
+
+      if (mediaData && mediaData.mediaItems) {
+        const fetchedMediaItems =
+          mediaData.mediaItems.nodes?.map((node: any) => ({
+            sourceUrl: node.sourceUrl,
+            caption: node.caption || "",
+            slug: createSlug(node.caption || "", node.id),
+          })) || [];
+
+        allMediaItems = [...allMediaItems, ...fetchedMediaItems];
+        hasNextPage = mediaData.mediaItems.pageInfo.hasNextPage;
+        endCursor = mediaData.mediaItems.pageInfo.endCursor;
+      } else {
+        hasNextPage = false;
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching media items:", error);
     throw new Error("Failed to fetch media items");
   }
-  return res.json();
+
+  return allMediaItems.filter((item) => item.caption);
 }
 
-export async function fetchMediaItemBySlug(slug: string) {
-  const items = await fetchMediaItems();
-  return items.find((item: any) => item.slug === slug);
+export function createSlug(caption: string, id: string): string {
+  if (!caption) {
+    return id;
+  }
+  const strippedCaption = caption.replace(/<[^>]+>/g, "");
+  const slug = strippedCaption
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+  return slug;
 }
