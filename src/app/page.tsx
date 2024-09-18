@@ -28,32 +28,34 @@ export async function generateMetadata() {
 async function getPageData() {
   const { data: siteData } = await client.query({ query: GET_SITE_SETTINGS });
   const { data: aboutData } = await client.query({ query: GET_ABOUT_PAGE });
+  const { data: allMediaItems } = await client.query({
+    query: GET_ALL_MEDIA_ITEMS,
+  });
+  // // Fetch all media items
+  // let allMediaItems: MediaItem[] = [];
+  // let hasNextPage = true;
+  // let endCursor: string | null = null;
 
-  // Fetch all media items
-  let allMediaItems: MediaItem[] = [];
-  let hasNextPage = true;
-  let endCursor: string | null = null;
+  // while (hasNextPage) {
+  //   const { data: mediaData } = await client.query({
+  //     query: GET_ALL_MEDIA_ITEMS,
+  //     variables: { first: 10, after: endCursor },
+  //   });
 
-  while (hasNextPage) {
-    const { data: mediaData } = await client.query({
-      query: GET_ALL_MEDIA_ITEMS,
-      variables: { first: 10, after: endCursor },
-    });
-
-    if (mediaData && mediaData.mediaItems) {
-      const fetchedMediaItems =
-        mediaData.mediaItems.nodes?.map((node: any) => ({
-          sourceUrl: node.sourceUrl,
-          caption: node.caption,
-        })) || [];
-      allMediaItems = [...allMediaItems, ...fetchedMediaItems];
-      hasNextPage = mediaData.mediaItems.pageInfo.hasNextPage;
-      endCursor = mediaData.mediaItems.pageInfo.endCursor;
-    } else {
-      console.error("No media data found");
-      hasNextPage = false;
-    }
-  }
+  //   if (mediaData && mediaData.mediaItems) {
+  //     const fetchedMediaItems =
+  //       mediaData.mediaItems.nodes?.map((node: any) => ({
+  //         sourceUrl: node.sourceUrl,
+  //         caption: node.caption,
+  //       })) || [];
+  //     allMediaItems = [...allMediaItems, ...fetchedMediaItems];
+  //     hasNextPage = mediaData.mediaItems.pageInfo.hasNextPage;
+  //     endCursor = mediaData.mediaItems.pageInfo.endCursor;
+  //   } else {
+  //     console.error("No media data found");
+  //     hasNextPage = false;
+  //   }
+  // }
 
   const profilePicture = aboutData.page.profilePicture?.profilePicture
     ?.node || {
@@ -103,8 +105,6 @@ export default async function HomePage() {
           <div className="p-10">
             <Contact />
           </div>
-
-          <div>{/* <Contact /> */}</div>
         </main>
       </div>
     </div>
