@@ -85,27 +85,33 @@ export default async function HomePage() {
   } = await getPageData();
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="py-20 md:pt-20">
-        <Name
-          profilePicture={profilePicture.sourceUrl}
-          siteTitle={siteTitle}
-          siteDescription={siteDescription}
-        />
-        <main className="container mt-24 mx-auto px-12 py-4">
-          <About
-            profilePicture={profilePicture.sourceUrl}
-            title={title}
-            content={content}
-          />
-          <div className="py-20 my-auto mt-20">
-            <Gallery mediaItems={mediaItems} />
+      <div className="flex-grow">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-20 sm:py-12 md:py-16">
+            <Name
+              profilePicture={profilePicture.sourceUrl}
+              siteTitle={siteTitle}
+              siteDescription={siteDescription}
+            />
           </div>
-          <div className="p-10">
-            <Contact />
-          </div>
-        </main>
+          <main>
+            <div className="mb-12 sm:mb-16">
+              <About
+                profilePicture={profilePicture.sourceUrl}
+                title={title}
+                content={content}
+              />
+            </div>
+            <div className="my-12 sm:my-16">
+              <Gallery mediaItems={mediaItems} />
+            </div>
+            <div className="my-12 sm:my-16">
+              <Contact />
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

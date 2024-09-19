@@ -17,9 +17,6 @@ const Name: React.FC<NameProps> = ({
 }) => (
   <SmokeFadeIn>
     <div>
-      <Head>
-        <title>{parse(siteTitle)}</title>
-      </Head>
       <div>
         <h1 className="py-5 text-4xl text-white font-bold mb-4 text-center">
           {siteTitle}

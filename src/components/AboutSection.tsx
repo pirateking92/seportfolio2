@@ -38,6 +38,10 @@ function AboutSection({ title, content, profilePicture }) {
               />
             </div>
           )}
+          <div
+            className="absolute inset-0 bg-cover bg-bottom opacity-20 block md:hidden"
+            style={{ backgroundImage: `url(${profilePicture})` }}
+          ></div>
         </div>
       </div>
     </SmokeFadeIn>
