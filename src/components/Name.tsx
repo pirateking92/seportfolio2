@@ -24,10 +24,10 @@ const Name: React.FC<NameProps> = ({
         <p className="text-center text-2xl text-slate-400">
           {parse(siteDescription)}
         </p>
-        <div
+        {/* <div
           className="absolute inset-0 bg-cover bg-bottom opacity-20 pointer-events-none block md:hidden"
           style={{ backgroundImage: `url(${profilePicture})` }}
-        ></div>
+        ></div> */}
       </div>
     </div>
   </SmokeFadeIn>
