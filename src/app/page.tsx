@@ -87,7 +87,7 @@ export default async function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-      <div className=" md:pt-20">
+      <div className="py-20 md:pt-20">
         <Name
           profilePicture={profilePicture.sourceUrl}
           siteTitle={siteTitle}
