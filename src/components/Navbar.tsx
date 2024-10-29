@@ -7,7 +7,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuOverlay from "./MenuOverlay";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-
+import AnimatedDropdownMenu from "./AnimatedDropdownMenu";
 interface NavLink {
   title: string;
   path: string;
@@ -33,6 +33,7 @@ const navLinks: NavLink[] = [
 const Navbar: React.FC = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -63,6 +64,23 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (navbarOpen) {
+      gsap.fromTo(
+        menuRef.current,
+        { height: 0, opacity: 0 },
+        { height: "auto", opacity: 1, duration: 0.5, ease: "power2.out" }
+      );
+    } else {
+      gsap.to(menuRef.current, {
+        height: 0,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.in",
+      });
+    }
+  }, [navbarOpen]);
+
   return (
     <nav
       ref={navbarRef}
@@ -89,19 +107,9 @@ const Navbar: React.FC = () => {
         </div>
         {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <button
-            onClick={() => setNavbarOpen(!navbarOpen)}
-            className="flex items-center px-4 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white bg-opacity-50"
-          >
-            {navbarOpen ? (
-              <XMarkIcon className="h-5 w-5" />
-            ) : (
-              <Bars3Icon className="h-5 w-5" />
-            )}
-          </button>
+          <AnimatedDropdownMenu links={navLinks} />
         </div>
       </div>
-      {navbarOpen ? <MenuOverlay links={navLinks} /> : null}
     </nav>
   );
 };

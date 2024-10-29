@@ -34,7 +34,7 @@ function AboutSection({ title, content, profilePicture }) {
                 alt="Profile Picture"
                 height={600}
                 width={400}
-                className="rounded-xl"
+                // className="rounded-xl"
               />
             </div>
           )}

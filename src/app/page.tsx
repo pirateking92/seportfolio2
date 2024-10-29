@@ -25,7 +25,7 @@ export async function generateMetadata() {
   };
 }
 
-async function getPageData() {
+export async function getPageData() {
   const { data: siteData } = await client.query({ query: GET_SITE_SETTINGS });
   const { data: aboutData } = await client.query({ query: GET_ABOUT_PAGE });
   const { data: mediaData } = await client.query({
