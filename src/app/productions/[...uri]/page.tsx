@@ -30,11 +30,10 @@ async function generateMetadata({ params }: { params: { uri: string[] } }) {
   };
 }
 
-export default async function ProductionPage({
-  params,
-}: {
-  params: { uri: string[] };
+export default async function ProductionPage(props: {
+  params: Promise<{ uri: string[] }>;
 }) {
+  const params = await props.params;
   const uri = `${params.uri.join("/")}`;
   console.log(`Fetching data for URI: ${uri}`); // Debug log
 
