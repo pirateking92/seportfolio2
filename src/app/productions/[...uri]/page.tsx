@@ -13,11 +13,7 @@ interface PageContentProps {
   imageData: string;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { uri: string[] };
-}) {
+async function generateMetadata({ params }: { params: { uri: string[] } }) {
   const uri = `${params.uri.join("/")}`;
   const { data } = await client.query({
     query: GET_PAGE_CONTENT,
