@@ -33,7 +33,7 @@ const navLinks: NavLink[] = [
 const Navbar: React.FC = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -84,11 +84,11 @@ const Navbar: React.FC = () => {
   return (
     <nav
       ref={navbarRef}
-      className="fixed top-0 left-0 right-0 z-10 bg-black bg-opacity-100"
+      className="fixed top-0 left-0 right-0 z-20 bg-black bg-opacity-90"
     >
-      <div className="flex container lg:py-4 px-3 items-center justify-between mx-auto py-2">
+      <div className="flex container items-center justify-between mx-auto p-4">
         {/* Logo */}
-        <Link href={"/"} className="text-xl md:text-3xl text-white">
+        <Link href="/" className="text-white text-xl md:text-3xl lg:text-4xl">
           Sepy Baghaei | Director & Playwright
         </Link>
         {/* Desktop Menu */}

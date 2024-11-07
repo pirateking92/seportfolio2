@@ -1,5 +1,6 @@
 "use-client";
 
+import React, { useState } from "react";
 import client from "../../apollo-client";
 import {
   GET_SITE_SETTINGS,
@@ -90,11 +91,11 @@ export default async function HomePage() {
       <div className="flex-grow">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="py-20 sm:py-12 md:py-16">
-            <Name
+            {/* <Name
               profilePicture={profilePicture.sourceUrl}
               siteTitle={siteTitle}
               siteDescription={siteDescription}
-            />
+            /> */}
           </div>
           <main>
             <div className="mb-12 sm:mb-16">
