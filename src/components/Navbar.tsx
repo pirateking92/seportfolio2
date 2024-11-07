@@ -88,7 +88,10 @@ const Navbar: React.FC = () => {
     >
       <div className="flex container items-center justify-between mx-auto p-4">
         {/* Logo */}
-        <Link href="/" className="text-white text-xl md:text-3xl lg:text-4xl">
+        <Link
+          href="/"
+          className="text-lg text-white sm:text-xl md:text-3xl lg:text-4xl"
+        >
           Sepy Baghaei | Director & Playwright
         </Link>
         {/* Desktop Menu */}
