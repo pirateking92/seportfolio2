@@ -28,6 +28,10 @@ const navLinks: NavLink[] = [
     title: "Productions",
     path: "/productions",
   },
+  {
+    title: "Test logo",
+    path: "",
+  },
 ];
 
 const Navbar: React.FC = () => {
