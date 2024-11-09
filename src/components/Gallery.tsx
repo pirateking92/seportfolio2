@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Carousel,
   CarouselContent,
@@ -7,7 +6,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
 import Image from "next/image";
 import parse from "html-react-parser";
 import { useState } from "react";
@@ -39,31 +37,41 @@ const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => {
           <CarouselContent>
             {mediaItems.map((item, index) => {
               if (!item.sourceUrl) {
-                return null; // Skip this item if sourceUrl is null or undefined
+                return null;
               }
               return (
                 <CarouselItem
                   key={index}
-                  className="basis-1/2 relative w-full h-[500px]"
+                  // Added group class to enable hover effects on the entire carousel item
+                  className="basis-1/2 relative w-full h-[500px] group"
                 >
                   <Image
                     src={item.sourceUrl}
                     alt={item.caption || "Gallery image"}
                     fill
-                    style={{ objectFit: "contain" }}
-                    // className="rounded-xl mx-auto"
+                    style={{ objectFit: "cover" }}
                   />
+                  {/* Added new overlay div that appears on hover */}
+                  {item.caption && (
+                    <div
+                      className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 
+                        transition-opacity duration-300 flex items-center justify-center p-6"
+                    >
+                      {/* Caption text container */}
+                      <div className="font-bodyFont text-xl text-white text-center">
+                        {parse(item.caption)}
+                      </div>
+                    </div>
+                  )}
                 </CarouselItem>
               );
             })}
           </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
-        {mediaItems[activeIndex]?.caption && (
-          <div className="font-bodyFont text-xl mt-4 bg-opacity-50 px-6 py-4 text-white text-center">
-            {parse(mediaItems[activeIndex].caption)}
-          </div>
-        )}
       </div>
+      {/* Removed the permanent caption display that was here */}
     </SmokeFadeIn>
   );
 };
