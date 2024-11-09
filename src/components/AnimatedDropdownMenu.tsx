@@ -40,7 +40,7 @@ const AnimatedDropdownMenu: React.FC<DropdownMenuProps> = ({ links }) => {
       >
         <div className="relative w-[50px] h-[40px]">
           <span
-            className={`absolute h-[5px] w-full bg-current rounded-[3px] transition-all duration-300 ease-in-out
+            className={`absolute h-[5px] w-[80%] bg-current rounded-[3px] transition-all duration-300 ease-in-out
             ${
               isOpen
                 ? "rotate-45 top-1/2 -translate-y-1/2"
@@ -48,11 +48,11 @@ const AnimatedDropdownMenu: React.FC<DropdownMenuProps> = ({ links }) => {
             }`}
           />
           <span
-            className={`absolute h-[5px] w-full bg-current rounded-[3px] transition-all duration-300 ease-in-out top-1/2 
+            className={`absolute h-[5px] w-[80%] bg-current rounded-[3px] transition-all duration-300 ease-in-out top-1/2 
             ${isOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"}`}
           />
           <span
-            className={`absolute h-[5px] w-full bg-current rounded-[3px] transition-all duration-300 ease-in-out
+            className={`absolute h-[5px] w-[80%] bg-current rounded-[3px] transition-all duration-300 ease-in-out
             ${
               isOpen
                 ? "-rotate-45 top-1/2 -translate-y-1/2"
