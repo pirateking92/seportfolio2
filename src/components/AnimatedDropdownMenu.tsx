@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import NavLink from "./NavLink";
+import { Instagram, Twitter, Facebook, Youtube } from "lucide-react";
 
 interface NavLinkItem {
   title: string;
@@ -40,7 +41,7 @@ const AnimatedDropdownMenu: React.FC<DropdownMenuProps> = ({ links }) => {
       >
         <div className="relative w-[50px] h-[40px]">
           <span
-            className={`absolute h-[5px] w-[80%] bg-current rounded-[3px] transition-all duration-300 ease-in-out
+            className={`absolute h-[3px] w-[80%] bg-current rounded-[2px] transition-all duration-300 ease-in-out
             ${
               isOpen
                 ? "rotate-45 top-1/2 -translate-y-1/2"
@@ -48,11 +49,11 @@ const AnimatedDropdownMenu: React.FC<DropdownMenuProps> = ({ links }) => {
             }`}
           />
           <span
-            className={`absolute h-[5px] w-[80%] bg-current rounded-[3px] transition-all duration-300 ease-in-out top-1/2 
+            className={`absolute h-[3px] w-[80%] bg-current rounded-[2px] transition-all duration-300 ease-in-out top-1/2 
             ${isOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"}`}
           />
           <span
-            className={`absolute h-[5px] w-[80%] bg-current rounded-[3px] transition-all duration-300 ease-in-out
+            className={`absolute h-[3px] w-[80%] bg-current rounded-[2px] transition-all duration-300 ease-in-out
             ${
               isOpen
                 ? "-rotate-45 top-1/2 -translate-y-1/2"
@@ -63,26 +64,43 @@ const AnimatedDropdownMenu: React.FC<DropdownMenuProps> = ({ links }) => {
       </button>
       <div
         ref={menuRef}
-        className={`fixed inset-x-0 top-16 -bottom-0 z-20 flex flex-col items-start justify-center bg-black bg-opacity-90 transition-all duration-300 ease-in-out transform ${
+        className={`fixed inset-x-0 top-16 -bottom-0 z-20 flex flex-col bg-black bg-opacity-90 transition-all duration-300 ease-in-out transform ${
           isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
-        <div className="ml-4 space-y-4">
-          {links.map((link, index) => (
-            <div
-              key={index}
-              className="relative text-4xl hover:underline text-white"
-              onClick={() => setIsOpen(false)}
+        {/* Main menu content */}
+        <div className="flex-grow flex items-start justify-left">
+          <div className="ml-4 space-y-4 mt-16">
+            {links.map((link, index) => (
+              <div
+                key={index}
+                className="relative text-4xl hover:underline text-white"
+                onClick={() => setIsOpen(false)}
+              >
+                <NavLink
+                  href={link.path}
+                  title={link.title}
+                  openInNewTab={link.openInNewTab}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Social icons footer */}
+        <div className="w-full px-8 py-6 border-t border-white/10">
+          <div className="flex items-left justify-left space-x-8">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 hover:text-white transition-colors duration-200"
             >
-              <NavLink
-                href={link.path}
-                title={link.title}
-                openInNewTab={link.openInNewTab}
-              />
-            </div>
-          ))}
+              <Instagram size={24} />
+            </a>
+          </div>
         </div>
       </div>
     </div>
