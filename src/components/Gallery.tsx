@@ -30,7 +30,7 @@ const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => {
   return (
     <SmokeFadeIn>
       <div className="container mx-auto">
-        <h1 className="font-bodyFont text-4xl text-slate-300 font-bold mb-4 text-center">
+        <h1 className="font-bodyFont text-4xl text-slate-300 font mb-4 text-left">
           Productions
         </h1>
         <Carousel>

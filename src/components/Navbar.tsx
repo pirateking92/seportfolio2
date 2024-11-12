@@ -16,8 +16,8 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   {
-    title: "Home",
-    path: "/",
+    title: "About",
+    path: "/about",
   },
   {
     title: "CV",
@@ -27,10 +27,6 @@ const navLinks: NavLink[] = [
   {
     title: "Productions",
     path: "/productions",
-  },
-  {
-    title: "Test logo",
-    path: "",
   },
 ];
 

@@ -67,12 +67,12 @@ export default async function ProductionPage(props: {
           <PageContent {...pageProps} />
         </div>
       </SmokeFadeIn>
-      {pageProps.imageData && (
+      {/* {pageProps.imageData && (
         <div
           className="absolute inset-0 bg-cover bg-bottom opacity-20 pointer-events-none"
           style={{ backgroundImage: `url(${pageProps.imageData})` }}
         ></div>
-      )}
+      )} */}
     </div>
   );
 }

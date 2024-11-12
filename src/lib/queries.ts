@@ -52,7 +52,7 @@ export const GET_CV_PAGE = gql`
   }
 `;
 
-// Media items query
+// Media items query, gets every item from the website
 export const GET_ALL_MEDIA_ITEMS = gql`
   query GetMediaItems($first: Int, $after: String) {
     mediaItems(first: $first, after: $after) {
@@ -68,6 +68,7 @@ export const GET_ALL_MEDIA_ITEMS = gql`
   }
 `;
 
+// using this to get the image that Sepy will put on each individual page
 export const GET_PAGE_IMAGE = gql`
   query GetMediaItemsByCaption($captionSearch: String!) {
     mediaItems(where: { search: $captionSearch }) {
