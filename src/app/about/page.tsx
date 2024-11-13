@@ -9,9 +9,6 @@ import {
 } from "../../lib/queries";
 import About from "../../components/AboutSection";
 import Navbar from "../../components/Navbar";
-import Gallery from "../../components/Gallery";
-import Contact from "@/components/Contact";
-
 interface MediaItem {
   sourceUrl: string;
   caption: string;

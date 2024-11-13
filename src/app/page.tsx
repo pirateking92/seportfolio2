@@ -3,14 +3,10 @@ import client from "../../apollo-client";
 import {
   GET_SITE_SETTINGS,
   GET_ABOUT_PAGE,
-  GET_PAGE_IMAGE,
+  GET_ALL_MEDIA_ITEMS,
 } from "../lib/queries";
 import Navbar from "../components/Navbar";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+import Gallery from "../components/Gallery";
 
 interface MediaItem {
   sourceUrl: string;
@@ -29,7 +25,7 @@ async function getPageData() {
   const { data: siteData } = await client.query({ query: GET_SITE_SETTINGS });
   const { data: aboutData } = await client.query({ query: GET_ABOUT_PAGE });
   const { data: mediaData } = await client.query({
-    query: GET_PAGE_IMAGE,
+    query: GET_ALL_MEDIA_ITEMS,
   });
   // Fetch all media items
   let allMediaItems: MediaItem[] = [];
@@ -38,8 +34,8 @@ async function getPageData() {
 
   while (hasNextPage) {
     const { data: mediaData } = await client.query({
-      query: GET_PAGE_IMAGE,
-      variables: { captionSearch: "Othello" },
+      query: GET_ALL_MEDIA_ITEMS,
+      variables: { first: 5, after: endCursor },
     });
 
     if (mediaData && mediaData.mediaItems) {
@@ -57,33 +53,44 @@ async function getPageData() {
     }
   }
 
-  // // Create a mapping of captions to media items
-  // const mediaItemsByCaption = allMediaItems.reduce((acc, item) => {
-  //   if (item.caption) {
-  //     acc[item.caption] = item;
-  //   }
-  //   return acc;
-  // }, {} as { [key: string]: MediaItem });
+  const profilePicture = aboutData.page.profilePicture?.profilePicture
+    ?.node || {
+    sourceUrl: "",
+    altText: "",
+    id: "",
+  };
 
-  // return {
-  //   mediaItemsByCaption,
-  // };
+  return {
+    siteTitle: siteData.generalSettings.title,
+    siteDescription: siteData.generalSettings.description,
+    title: aboutData.page.title,
+    content: aboutData.page.content,
+    profilePicture,
+    mediaItems: allMediaItems.filter((item) => item.caption),
+  };
 }
 
 export default async function HomePage() {
-  // const { mediaItemsByCaption } = await getPageData();
+  const {
+    siteTitle,
+    siteDescription,
+    title,
+    content,
+    profilePicture,
+    mediaItems,
+  } = await getPageData();
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-grow">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="py-20 sm:py-12 md:py-16 text-center justify-center text-4xl text-white">
-            <HoverCard>
-              <HoverCardTrigger>Wish You Were Here</HoverCardTrigger>
-              <HoverCardContent>IMAGE PLACEHOLDER</HoverCardContent>
-            </HoverCard>
-          </div>
+          <div className="py-20 sm:py-12 md:py-16"></div>
+          <main>
+            <div className="my-12 sm:my-16">
+              <Gallery mediaItems={mediaItems} />
+            </div>
+          </main>
         </div>
       </div>
     </div>
