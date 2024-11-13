@@ -3,8 +3,6 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import NavLink from "./NavLink";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import MenuOverlay from "./MenuOverlay";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import AnimatedDropdownMenu from "./AnimatedDropdownMenu";
@@ -21,12 +19,11 @@ const navLinks: NavLink[] = [
   },
   {
     title: "CV",
-    path: "/SEPY BAGHAEI CV 2024.pdf",
-    openInNewTab: true,
+    path: "/cv",
   },
   {
-    title: "Productions",
-    path: "/productions",
+    title: "Contact",
+    path: "/contact",
   },
 ];
 
@@ -84,7 +81,7 @@ const Navbar: React.FC = () => {
   return (
     <nav
       ref={navbarRef}
-      className="fixed top-0 left-0 right-0 z-20 bg-black bg-opacity-0"
+      className="fixed top-0 left-0 right-0 z-20 bg-black bg-opacity-"
     >
       <div className="flex container items-center justify-between mx-auto p-4">
         {/* Logo */}

@@ -84,14 +84,11 @@ export default async function HomePage() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-grow">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="py-20 sm:py-12 md:py-16"></div>
-          <main>
-            <div className="my-12 sm:my-16">
-              <Gallery mediaItems={mediaItems} />
-            </div>
-          </main>
-        </div>
+        <main>
+          <div className="py-10 my-12 sm:my-16">
+            <Gallery mediaItems={mediaItems} />
+          </div>
+        </main>
       </div>
     </div>
   );

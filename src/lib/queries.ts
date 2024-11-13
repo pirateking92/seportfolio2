@@ -40,14 +40,8 @@ export const GET_ABOUT_PAGE = gql`
 export const GET_CV_PAGE = gql`
   query GetCVPage {
     page(id: "cv", idType: URI) {
-      cvUpload {
-        cvUpload {
-          node {
-            sourceUrl
-            mediaItemUrl
-          }
-        }
-      }
+      content
+      title
     }
   }
 `;

@@ -29,48 +29,44 @@ const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => {
 
   return (
     <SmokeFadeIn>
-      <div className="container mx-auto">
-        <h1 className="font-bodyFont text-4xl text-slate-300 font mb-4 text-left">
-          Productions
-        </h1>
-        <Carousel>
-          <CarouselContent>
-            {mediaItems.map((item, index) => {
-              if (!item.sourceUrl) {
-                return null;
-              }
-              return (
-                <CarouselItem
-                  key={index}
-                  // Added group class to enable hover effects on the entire carousel item
-                  className="basis-1/2 relative w-full h-[500px] group"
-                >
-                  <Image
-                    src={item.sourceUrl}
-                    alt={item.caption || "Gallery image"}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                  {/* Added new overlay div that appears on hover */}
-                  {item.caption && (
-                    <div
-                      className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 
+      <Carousel className="w-full">
+        <CarouselContent>
+          {mediaItems.map((item, index) => {
+            if (!item.sourceUrl) {
+              return null;
+            }
+            return (
+              <CarouselItem
+                key={index}
+                // Added group class to enable hover effects on the entire carousel item
+                className="basis-1/2 relative w-full h-[calc(100vh-8rem)] group"
+              >
+                <Image
+                  src={item.sourceUrl}
+                  alt={item.caption || "Gallery image"}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+                {/* Added new overlay div that appears on hover */}
+                {item.caption && (
+                  <div
+                    className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 
                         transition-opacity duration-300 flex items-center justify-center p-6"
-                    >
-                      {/* Caption text container */}
-                      <div className="font-bodyFont text-xl text-white text-center">
-                        {parse(item.caption)}
-                      </div>
+                  >
+                    {/* Caption text container */}
+                    <div className="font-bodyFont text-xl text-white text-center">
+                      {parse(item.caption)}
                     </div>
-                  )}
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
+                  </div>
+                )}
+              </CarouselItem>
+            );
+          })}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+
       {/* Removed the permanent caption display that was here */}
     </SmokeFadeIn>
   );

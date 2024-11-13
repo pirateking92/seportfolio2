@@ -2,7 +2,6 @@
 "use-client";
 
 import SmokeFadeIn from "./SmokeFadeIn";
-import FadeInMotion from "./SmokeFadeIn";
 import Image from "next/image";
 
 interface AboutProps {
