@@ -96,3 +96,19 @@ export const GET_ALL_URIS = gql`
     }
   }
 `;
+
+export const GET_PAGE_IMAGE_AND_CONTENT = gql`
+  query GetPageImageAndContent($id: ID!) {
+    page(id: $id, idType: URI) {
+      showInGallery {
+        mainImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+      content
+      title
+    }
+  }
+`;

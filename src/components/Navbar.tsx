@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
   return (
     <nav
       ref={navbarRef}
-      className="fixed top-0 left-0 right-0 z-20 bg-black bg-opacity-"
+      className="fixed top-0 left-0 right-0 z-20 bg-black bg-opacity-50"
     >
       <div className="flex container items-center justify-between mx-auto p-4">
         {/* Logo */}

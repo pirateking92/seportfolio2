@@ -19,13 +19,13 @@ const Contact: FC = () => {
   }
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-full items-center justify-center">
       <SmokeFadeIn>
         <form
           className="w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-6xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-20"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="text-center text-4xl sm:text-5xl lg:text-6xl text-white mb-8 lg:mb-12">
+          <div className="text-left text-4xl sm:text-5xl lg:text-6xl text-white mb-8 lg:mb-12">
             Contact
           </div>
           <div className="grid md:grid-cols-2 gap-6">

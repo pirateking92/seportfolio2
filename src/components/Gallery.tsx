@@ -13,7 +13,8 @@ import SmokeFadeIn from "./SmokeFadeIn";
 
 interface MediaItem {
   sourceUrl: string;
-  caption: string;
+  content: string;
+  title: string;
 }
 
 interface GalleryProps {
@@ -29,12 +30,9 @@ const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => {
 
   return (
     <SmokeFadeIn>
-      <Carousel className="w-full">
+      <Carousel className="justify-center w-full">
         <CarouselContent>
           {mediaItems.map((item, index) => {
-            if (!item.sourceUrl) {
-              return null;
-            }
             return (
               <CarouselItem
                 key={index}
@@ -43,19 +41,19 @@ const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => {
               >
                 <Image
                   src={item.sourceUrl}
-                  alt={item.caption || "Gallery image"}
+                  alt={item.title || "Gallery image"}
                   fill
                   style={{ objectFit: "cover" }}
                 />
                 {/* Added new overlay div that appears on hover */}
-                {item.caption && (
+                {item.title && (
                   <div
                     className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 
                         transition-opacity duration-300 flex items-center justify-center p-6"
                   >
                     {/* Caption text container */}
                     <div className="font-bodyFont text-xl text-white text-center">
-                      {parse(item.caption)}
+                      {parse(item.title)}
                     </div>
                   </div>
                 )}

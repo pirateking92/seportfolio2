@@ -32,20 +32,16 @@ export default function CVPage() {
       <Navbar />
       <SmokeFadeIn>
         <div className="flex-grow">
-          <main className="pt-24 ">
+          <main className="pt-24 m-5 mb-6 ">
             {" "}
             {/* Moved padding here */}
-            <div className="p-9 text-3xl text-slate-300 font-bold mb-4 text-left">
+            {/* <div className="p-9 text-3xl text-slate-300 font-bold mb-4 text-left">
               {cvData?.title || "Loading..."}
-            </div>
-            {cvData?.content ? (
-              <div
-                className="prose-xl px-9 text-slate-300"
-                dangerouslySetInnerHTML={{ __html: cvData.content }}
-              />
-            ) : (
-              <p className="text-slate-300 px-9">---</p>
-            )}
+            </div> */}
+            <div
+              className="prose-lg px-9 text-slate-300"
+              dangerouslySetInnerHTML={{ __html: cvData?.content }}
+            />
           </main>
         </div>
       </SmokeFadeIn>

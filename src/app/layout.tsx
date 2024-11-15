@@ -3,6 +3,8 @@ import { Indie_Flower, Alegreya } from "next/font/google";
 import "/src/app/globals.css";
 import "flowbite/dist/flowbite.css";
 
+import CustomApolloProvider from "@/app/providers/ApolloProvider";
+
 const headingFont = Indie_Flower({
   subsets: ["latin"],
   weight: ["400"],
@@ -18,7 +20,7 @@ const bodyFont = Alegreya({
 export const metadata = {
   title: "Sepy Baghaei",
   icons: {
-    icon: "2.png",
+    icon: "/2.png",
   },
 };
 
@@ -30,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${headingFont.variable} ${bodyFont.variable}`}>
       <body className="bg-black-to-navy min-h-screen bg-no-repeat bg-fixed">
-        {children}
+        <CustomApolloProvider>{children}</CustomApolloProvider>
       </body>
     </html>
   );

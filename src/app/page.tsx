@@ -1,95 +1,80 @@
-import React, { useState } from "react";
+import { gql, useQuery } from "@apollo/client";
+import Image from "next/image";
+import Link from "next/link";
+import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
 import client from "../../apollo-client";
+import Navbar from "@/components/Navbar";
 import {
-  GET_SITE_SETTINGS,
-  GET_ABOUT_PAGE,
-  GET_ALL_MEDIA_ITEMS,
-} from "../lib/queries";
-import Navbar from "../components/Navbar";
-import Gallery from "../components/Gallery";
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
+// import { useState, useEffect } from "react";
 
-interface MediaItem {
-  sourceUrl: string;
-  caption: string;
-}
+// export default function App() {
+//   const [isClient, setIsClient] = useState(false);
 
-export async function generateMetadata() {
-  const { data: siteData } = await client.query({ query: GET_SITE_SETTINGS });
-  return {
-    title: siteData.generalSettings.title,
-    description: siteData.generalSettings.description,
-  };
-}
+//   useEffect(() => {
+//     setIsClient(true);
+//   }, []);
 
-async function getPageData() {
-  const { data: siteData } = await client.query({ query: GET_SITE_SETTINGS });
-  const { data: aboutData } = await client.query({ query: GET_ABOUT_PAGE });
-  const { data: mediaData } = await client.query({
-    query: GET_ALL_MEDIA_ITEMS,
-  });
-  // Fetch all media items
-  let allMediaItems: MediaItem[] = [];
-  let hasNextPage = true;
-  let endCursor: string | null = null;
+//   return <h1>{isClient ? "This is never prerendered" : "Prerendered"}</h1>;
+// }
 
-  while (hasNextPage) {
-    const { data: mediaData } = await client.query({
-      query: GET_ALL_MEDIA_ITEMS,
-      variables: { first: 5, after: endCursor },
-    });
+// Hard-coded list of theatre production pages
+const theatreProductionPages = ["/wish-you-were-here"];
 
-    if (mediaData && mediaData.mediaItems) {
-      const fetchedMediaItems =
-        mediaData.mediaItems.nodes?.map((node: any) => ({
-          sourceUrl: node.sourceUrl,
-          caption: node.caption,
-        })) || [];
-      allMediaItems = [...allMediaItems, ...fetchedMediaItems];
-      hasNextPage = mediaData.mediaItems.pageInfo.hasNextPage;
-      endCursor = mediaData.mediaItems.pageInfo.endCursor;
-    } else {
-      console.error("No media data found");
-      hasNextPage = false;
-    }
-  }
-
-  const profilePicture = aboutData.page.profilePicture?.profilePicture
-    ?.node || {
-    sourceUrl: "",
-    altText: "",
-    id: "",
-  };
-
-  return {
-    siteTitle: siteData.generalSettings.title,
-    siteDescription: siteData.generalSettings.description,
-    title: aboutData.page.title,
-    content: aboutData.page.content,
-    profilePicture,
-    mediaItems: allMediaItems.filter((item) => item.caption),
-  };
-}
-
-export default async function HomePage() {
-  const {
-    siteTitle,
-    siteDescription,
-    title,
-    content,
-    profilePicture,
-    mediaItems,
-  } = await getPageData();
+const TheatreProductionsLandingPage = async () => {
+  // Fetch page data for each page in theatreProductionPages
+  const pageData = await Promise.all(
+    theatreProductionPages.map(async (pageSlug) => {
+      const { data } = await client.query({
+        query: GET_PAGE_IMAGE_AND_CONTENT,
+        variables: { id: pageSlug },
+      });
+      return data.page;
+    })
+  );
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="h-screen w-screen ">
       <Navbar />
-      <div className="flex-grow">
-        <main>
-          <div className="py-10 my-12 sm:my-16">
-            <Gallery mediaItems={mediaItems} />
-          </div>
-        </main>
-      </div>
+      <Carousel opts={{ loop: true }} className="relative h-full w-full">
+        <CarouselContent className="flex justify-center items-center h-full">
+          {pageData.map((page) => (
+            <CarouselItem
+              key={page.title}
+              className="relative h-4/5 w-[80%] sm:w-[70%] md:w-[60%] lg:w-[50%] mx-4"
+            >
+              <Link
+                href={`/productions/${encodeURIComponent(
+                  page.title.toLowerCase().replace(/\s/g, "-")
+                )}`}
+                className="block h-full hover:scale-95 transition-transform duration-300"
+              >
+                <div className="relative h-full w-full overflow-hidden">
+                  {/* <Image
+                    src={page.showInGallery.mainImage.node.sourceUrl}
+                    alt={page.title}
+                    fill
+                    className="object-cover rounded-lg"
+                  /> */}
+                </div>
+                <div className="bg-white p-4">
+                  <h3 className="text-xl font-bold mb-2">{page.title}</h3>
+                  <div dangerouslySetInnerHTML={{ __html: page.content }} />
+                </div>
+              </Link>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="absolute top-1/2 left-2 transform -translate-y-1/2 z-10" />
+        <CarouselNext className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10" />
+      </Carousel>
     </div>
   );
-}
+};
+
+export default TheatreProductionsLandingPage;
