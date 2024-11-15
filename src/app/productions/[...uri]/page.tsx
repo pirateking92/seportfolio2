@@ -2,7 +2,6 @@ import client from "../../../../apollo-client";
 import PageContent from "@/components/PageContent";
 import Navbar from "@/components/Navbar";
 import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
-import { metadata as globalMetadata } from "@/app/layout";
 import SmokeFadeIn from "@/components/SmokeFadeIn";
 
 interface PageContentProps {
@@ -13,25 +12,25 @@ interface PageContentProps {
   imageData: string;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { uri: string[] };
-}) {
-  const uri = params.uri.join("/");
-  const pageData = await getPageData(uri);
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { uri: string[] };
+// }) {
+//   const uri = params.uri.join("/");
+//   const pageData = await getPageData(uri);
 
-  if (!pageData) {
-    return { title: "Production Not Found" };
-  }
+//   if (!pageData) {
+//     return { title: "Production Not Found" };
+//   }
 
-  return {
-    title: `${pageData.pageTitle} | Sepy Baghaei`,
-    ...globalMetadata,
-  };
-}
+//   return {
+//     title: `${pageData.pageTitle} | Sepy Baghaei`,
+//     ...globalMetadata,
+//   };
+// }
 
-export const getPageData = async (uri: string) => {
+const getPageData = async (uri: string) => {
   const { data } = await client.query({
     query: GET_PAGE_IMAGE_AND_CONTENT,
     variables: { id: uri },
@@ -51,7 +50,7 @@ export const getPageData = async (uri: string) => {
 };
 
 export default async function ProductionPage(props: {
-  params: { uri: string[] };
+  params: Promise<{ uri: string[] }>;
 }) {
   const { uri } = await props.params;
   const pageData = await getPageData(uri.join("/"));
@@ -71,7 +70,7 @@ export default async function ProductionPage(props: {
       {pageData.imageData && (
         <div
           className="absolute inset-0 bg-cover bg-bottom opacity-20 pointer-events-none"
-          style={{ backgroundImage: `url(${pageData.imageData})` }}
+          // style={{ backgroundImage: `url(${pageData.imageData})` }}
         ></div>
       )}
     </div>

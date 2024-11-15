@@ -52,7 +52,7 @@ const TheatreProductionsLandingPage = async () => {
                 href={`/productions/${encodeURIComponent(
                   page.title.toLowerCase().replace(/\s/g, "-")
                 )}`}
-                className="block h-full hover:scale-95 transition-transform duration-300"
+                className="flex pt-10 justify-center items-center h-full hover:scale-95 transition-transform duration-300"
               >
                 <div className="relative h-full w-full overflow-hidden">
                   {/* <Image
@@ -62,7 +62,7 @@ const TheatreProductionsLandingPage = async () => {
                     className="object-cover rounded-lg"
                   /> */}
                 </div>
-                <div className="bg-white p-4">
+                <div className="text-white prose-lg p-4">
                   <h3 className="text-xl font-bold mb-2">{page.title}</h3>
                   <div dangerouslySetInnerHTML={{ __html: page.content }} />
                 </div>
