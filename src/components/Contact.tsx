@@ -22,13 +22,13 @@ const Contact: FC = () => {
     <div className="w-full h-full items-center justify-center">
       <SmokeFadeIn>
         <form
-          className="w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-6xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-20"
+          className="w-full max-w-md sm:max-w-lg mb-10 md:max-w-2xl lg:max-w-6xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-20"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="text-left text-4xl sm:text-5xl lg:text-6xl text-white mb-8 lg:mb-12">
             Contact
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-1">
             <div className="mb-6">
               <label
                 htmlFor="name"
@@ -43,7 +43,7 @@ const Contact: FC = () => {
                 {...register("name", { required: true })}
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-5">
               <label
                 htmlFor="email"
                 className="mb-2 block text-sm font-medium text-white"
@@ -75,7 +75,7 @@ const Contact: FC = () => {
           <div className="flex justify-center items-center">
             <button
               type="submit"
-              className="rounded-md bg-purple-500 py-3 px-8 text-lg font-semibold text-white outline-none hover:bg-purple-600 focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition duration-200"
+              className=" rounded-md bg-purple-500 py-3 px-8 text-lg font-semibold text-white outline-none hover:bg-purple-600 focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition duration-200"
             >
               Submit
             </button>
