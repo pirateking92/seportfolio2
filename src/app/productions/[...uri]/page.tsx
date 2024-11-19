@@ -12,24 +12,6 @@ interface PageContentProps {
   imageData: string;
 }
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { uri: string[] };
-// }) {
-//   const uri = params.uri.join("/");
-//   const pageData = await getPageData(uri);
-
-//   if (!pageData) {
-//     return { title: "Production Not Found" };
-//   }
-
-//   return {
-//     title: `${pageData.pageTitle} | Sepy Baghaei`,
-//     ...globalMetadata,
-//   };
-// }
-
 const getPageData = async (uri: string) => {
   const { data } = await client.query({
     query: GET_PAGE_IMAGE_AND_CONTENT,
@@ -60,10 +42,10 @@ export default async function ProductionPage(props: {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative flex flex-col min-h-screen">
       <Navbar />
       <SmokeFadeIn>
-        <div className="pt-16 md:pt-20">
+        <div className="flex flex-col pt-16 md:pt-20 justify-center items-center mx-auto w-full max-w-screen-lg px-4">
           <PageContent {...pageData} />
         </div>
       </SmokeFadeIn>

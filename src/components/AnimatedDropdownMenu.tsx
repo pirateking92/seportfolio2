@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import NavLink from "./NavLink";
-import { Instagram, Twitter, Facebook, Youtube } from "lucide-react";
+import { SiInstagram } from "@icons-pack/react-simple-icons";
 
 interface NavLinkItem {
   title: string;
@@ -91,14 +91,14 @@ const AnimatedDropdownMenu: React.FC<DropdownMenuProps> = ({ links }) => {
 
         {/* Social icons footer */}
         <div className="w-full px-8 py-6 border-t border-white/10">
-          <div className="flex items-left justify-left space-x-8">
+          <div className="flex items-end justify-end space-x-8">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/sepy.baghaei/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/70 hover:text-white transition-colors duration-200"
             >
-              <Instagram size={24} />
+              <SiInstagram size={24} />
             </a>
           </div>
         </div>

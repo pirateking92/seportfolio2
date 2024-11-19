@@ -1,4 +1,5 @@
 import React from "react";
+import GradualSpacing from "./ui/gradual-spacing";
 
 interface PageContentProps {
   id: string;

@@ -35,27 +35,24 @@ const TheatreProductionsLandingPage = async () => {
       <Navbar />
       <main className="flex-grow">
         <Carousel opts={{ loop: true }} className="pt-10 h-full w-full">
-          <CarouselContent className="flex items-center justify-center w-full h-full">
+          <CarouselContent className="ml-1 flex items-center justify-center w-full h-full">
             <span>
               {pageData.map((page) => (
-                <CarouselItem
-                  key={page.title}
-                  className="relative h-4/5 w-[80%] sm:w-[70%] md:w-[60%] lg:w-[50%] mx-4"
-                >
+                <CarouselItem key={page.title} className="w-full h-full">
                   <Link
                     href={`/productions/${encodeURIComponent(
                       page.title.toLowerCase().replace(/\s/g, "-")
                     )}`}
-                    className="flex pt-10 justify-center items-center h-full hover:scale-95 transition-transform duration-300"
+                    className="flex pt-10 justify-evenly items-stretch h-full hover:scale-95 transition-transform duration-300"
                   >
-                    <div className="relative h-full w-full overflow-hidden">
+                    {/* <div className="p-1 h-full w-full">
                       <Image
                         src={page.showInGallery.mainImage.node.sourceUrl}
                         alt={page.title}
                         fill
                         className="object-cover rounded-lg"
                       />
-                    </div>
+                    </div> */}
                     <div className="text-white prose-lg p-4">
                       <h3 className="text-xl font-bold mb-2">{page.title}</h3>
                       <div

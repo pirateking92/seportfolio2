@@ -6,6 +6,7 @@ import NavLink from "./NavLink";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import AnimatedDropdownMenu from "./AnimatedDropdownMenu";
+import GradualSpacing from "./ui/gradual-spacing";
 interface NavLink {
   title: string;
   path: string;
@@ -91,7 +92,10 @@ const Navbar: React.FC = () => {
           href="/"
           className="text-lg text-white sm:text-xl md:text-3xl lg:text-4xl"
         >
-          Sepy Baghaei | Director & Playwright
+          <GradualSpacing
+            className="font-bodyFont"
+            text="Sepy Baghaei | Director & Playwright"
+          />
         </Link>
         {/* Desktop Menu */}
         <div className="hidden md:block">

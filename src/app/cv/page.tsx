@@ -29,13 +29,13 @@ export default function CVPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* <Navbar /> */}
+      <Navbar />
       <SmokeFadeIn>
         <div className="flex-grow pt-24 m-5 mb-6">
           {" "}
           {/* Moved padding here */}
           <div className="p-9 text-3xl text-slate-300 font-bold mb-4 text-left">
-            {cvData?.title || "^_^"}
+            {cvData?.title}
           </div>
           <div
             className="prose-lg px-9 text-slate-300"
