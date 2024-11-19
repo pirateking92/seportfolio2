@@ -26,7 +26,10 @@ const Contact: FC = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="text-left text-4xl sm:text-5xl lg:text-6xl text-white mb-8 lg:mb-12">
-            Contact
+            <p>Contact</p>
+            <p className="pt-5 text-base">
+              Get in touch, and I&apos;ll get back to you as soon as I can
+            </p>
           </div>
           <div className="grid md:grid-cols-2 gap-1">
             <div className="mb-6">

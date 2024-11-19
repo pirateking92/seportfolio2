@@ -15,7 +15,9 @@ module.exports = {
   		},
   		animation: {
   			'fade-in': 'fade-in 0.3s ease-in-out',
-  			'fade-out': 'fade-out 0.3s ease-in-out'
+  			'fade-out': 'fade-out 0.3s ease-in-out',
+  			marquee: 'marquee var(--duration) infinite linear',
+  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite'
   		},
   		keyframes: {
   			'fade-in': {
@@ -32,6 +34,22 @@ module.exports = {
   				},
   				'100%': {
   					opacity: '0'
+  				}
+  			},
+  			marquee: {
+  				from: {
+  					transform: 'translateX(0)'
+  				},
+  				to: {
+  					transform: 'translateX(calc(-100% - var(--gap)))'
+  				}
+  			},
+  			'marquee-vertical': {
+  				from: {
+  					transform: 'translateY(0)'
+  				},
+  				to: {
+  					transform: 'translateY(calc(-100% - var(--gap)))'
   				}
   			}
   		},
