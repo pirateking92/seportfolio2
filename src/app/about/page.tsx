@@ -9,6 +9,7 @@ import {
 } from "../../lib/queries";
 import About from "../../components/AboutSection";
 import Navbar from "../../components/Navbar";
+import Footer from "@/components/Footer";
 interface MediaItem {
   sourceUrl: string;
   caption: string;
@@ -102,6 +103,7 @@ export default async function AboutPage() {
               />
             </div>
           </main>
+          <Footer />
         </div>
       </div>
     </div>

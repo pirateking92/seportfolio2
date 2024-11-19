@@ -49,8 +49,10 @@ const Navbar: React.FC = () => {
       .progress(1);
 
     ScrollTrigger.create({
+      trigger: navbarRef.current,
       start: "top top",
       end: "max",
+      scroller: document.documentElement,
       onUpdate: (self) => {
         self.direction === -1 ? showNav.play() : showNav.reverse();
       },
