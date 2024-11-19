@@ -29,10 +29,7 @@ const TheatreProductionsLandingPage = async () => {
       return data.page;
     })
   );
-  const carouselData = Array.from(
-    { length: 5 },
-    (_, index) => pageData[index % pageData.length]
-  );
+
   return (
     <div className="flex min-h-screen">
       <Navbar />
@@ -40,10 +37,10 @@ const TheatreProductionsLandingPage = async () => {
         <Carousel opts={{ loop: true }} className="pt-10 h-full w-full">
           <CarouselContent className="flex items-center justify-center w-full h-full">
             <span>
-              {carouselData.map((page, index) => (
+              {pageData.map((page) => (
                 <CarouselItem
-                  key={`${page.title}-${index}`}
-                  className="" //"relative h-4/5 w-[80%] sm:w-[70%] md:w-[60%] lg:w-[50%] mx-4"
+                  key={page.title}
+                  className="relative h-4/5 w-[80%] sm:w-[70%] md:w-[60%] lg:w-[50%] mx-4"
                 >
                   <Link
                     href={`/productions/${encodeURIComponent(
