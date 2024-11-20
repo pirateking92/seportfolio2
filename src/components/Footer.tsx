@@ -19,15 +19,26 @@ const Footer: React.FC = () => {
       { opacity: 1, duration: 0.5, paused: true }
     );
 
-    ScrollTrigger.create({
-      trigger: document.documentElement, // Observe the entire page
-      start: "bottom bottom", // Trigger when bottom of viewport reaches the bottom of the page
-      end: "max", // Optional but ensures it tracks to the end
-      onEnter: () => showFooter.play(), // Fade in when reaching the bottom
-      onLeaveBack: () => showFooter.reverse(), // Fade out when scrolling up
+    const trigger = ScrollTrigger.create({
+      trigger: document.documentElement,
+      start: "bottom bottom",
+      onEnter: () => showFooter.play(),
+      onLeaveBack: () => showFooter.reverse(),
     });
 
+    // forced refresh to ensure proper initialisation (wasnt loading properly on load)
+    ScrollTrigger.refresh();
+
+    // Check the scroll position immediately
+    if (
+      window.scrollY + window.innerHeight >=
+      document.documentElement.scrollHeight
+    ) {
+      showFooter.play(); // Show the footer if already at the bottom
+    }
+
     return () => {
+      trigger.kill(); // Clean up the ScrollTrigger instance
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);

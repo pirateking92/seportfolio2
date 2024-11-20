@@ -13,8 +13,6 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
-import Marquee from "@/components/ui/marquee";
-import { cn } from "@/lib/utils";
 
 const theatreProductionPages = ["wish-you-were-here"];
 

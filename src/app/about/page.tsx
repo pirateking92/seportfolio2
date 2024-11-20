@@ -9,7 +9,6 @@ import {
 } from "../../lib/queries";
 import About from "../../components/AboutSection";
 import Navbar from "../../components/Navbar";
-import Footer from "@/components/Footer";
 import SmokeFadeIn from "@/components/SmokeFadeIn";
 interface MediaItem {
   sourceUrl: string;
