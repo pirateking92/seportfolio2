@@ -73,14 +73,7 @@ async function getPageData() {
 }
 
 export default async function AboutPage() {
-  const {
-    siteTitle,
-    siteDescription,
-    title,
-    content,
-    profilePicture,
-    mediaItems,
-  } = await getPageData();
+  const { title, content, profilePicture } = await getPageData();
 
   return (
     <SmokeFadeIn>

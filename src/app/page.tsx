@@ -16,11 +16,11 @@ import { useState, useEffect } from "react";
 
 const theatreProductionPages = [
   "wish-you-were-here",
-  "i-am-lysistrata",
-  "attempts-on-her-life",
-  "habibti-driver",
-  "darknet",
-  "trust",
+  // "i-am-lysistrata",
+  // "attempts-on-her-life",
+  // "habibti-driver",
+  // "darknet",
+  // "trust",
 ];
 
 const TheatreProductionsLandingPage = async () => {
