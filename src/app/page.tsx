@@ -14,7 +14,14 @@ import {
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
 
-const theatreProductionPages = ["wish-you-were-here"];
+const theatreProductionPages = [
+  "wish-you-were-here",
+  "i-am-lysistrata",
+  "attempts-on-her-life",
+  "habibti-driver",
+  "darknet",
+  "trust",
+];
 
 const TheatreProductionsLandingPage = async () => {
   // Fetch page data for each page in theatreProductionPages
@@ -32,42 +39,37 @@ const TheatreProductionsLandingPage = async () => {
     <div className="flex min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        <Carousel opts={{ loop: true }} className="pt-10 h-full w-full">
-          <CarouselContent className="ml-1 flex items-center justify-center w-full h-full">
-            <span>
-              {pageData.map((page) => (
-                <CarouselItem key={page.title} className="w-full h-full">
+        <Carousel opts={{ loop: true }} className="w-full">
+          <CarouselContent>
+            {pageData.map((page) => (
+              <CarouselItem key={page.title} className="basis-full">
+                <div className="pt-16 p-1 h-[90vh]">
                   <Link
                     href={`/productions/${encodeURIComponent(
                       page.title.toLowerCase().replace(/\s/g, "-")
                     )}`}
-                    className="flex pt-10 justify-evenly items-stretch h-full hover:scale-95 transition-transform duration-300"
+                    className="block w-full h-full group"
                   >
-                    {/* <div className="p-1 h-full w-full">
+                    <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-95">
                       <Image
                         src={page.showInGallery.mainImage.node.sourceUrl}
                         alt={page.title}
                         fill
                         className="object-cover rounded-lg"
                       />
-                    </div> */}
-                    <div className="text-white prose-lg p-4">
-                      <h3 className="text-xl font-bold mb-2">{page.title}</h3>
-                      <div
-                        className="w-full h-full"
-                        style={{
-                          backgroundImage: `url(${page.showInGallery.mainImage.node.sourceUrl})`,
-                        }}
-                        dangerouslySetInnerHTML={{ __html: page.content }}
-                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 flex items-center justify-center transition-all duration-300">
+                        <h3 className="text-white text-2xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          {page.title}
+                        </h3>
+                      </div>
                     </div>
                   </Link>
-                </CarouselItem>
-              ))}
-            </span>
+                </div>
+              </CarouselItem>
+            ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute top-1/2 left-2 transform -translate-y-1/2 z-10" />
-          <CarouselNext className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10" />
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </main>
     </div>
