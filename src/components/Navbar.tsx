@@ -28,7 +28,7 @@ const navLinks: NavLink[] = [
   },
 ];
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -36,49 +36,47 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const showNav = gsap
-      .fromTo(
-        navbarRef.current,
-        {
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-          duration: 0.4,
-        }
-      )
-      .progress(1);
+    const contentHeight = document.body.scrollHeight;
+    const viewportHeight = window.innerHeight;
+    const SCROLL_BUFFER = 50;
 
-    ScrollTrigger.create({
-      trigger: navbarRef.current,
-      start: "top top",
-      end: "max",
-      scroller: document.documentElement,
-      onUpdate: (self) => {
-        self.direction === -1 ? showNav.play() : showNav.reverse();
-      },
+    // Simpler animation targeting opacity 0 as the "hidden" state
+    const showNav = gsap.to(navbarRef.current, {
+      opacity: 0,
+      duration: 0.4,
+      paused: true,
+      reversed: true, // Start in visible state (opacity 1)
     });
 
+    if (contentHeight > viewportHeight + SCROLL_BUFFER) {
+      ScrollTrigger.create({
+        trigger: navbarRef.current,
+        start: "top top",
+        end: "max",
+        scroller: document.documentElement,
+        onUpdate: (self) => {
+          self.direction === -1 ? showNav.reverse() : showNav.play();
+        },
+      });
+    }
+
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      showNav.kill();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
   useEffect(() => {
-    if (navbarOpen) {
-      gsap.fromTo(
-        menuRef.current,
-        { height: 0, opacity: 0 },
-        { height: "auto", opacity: 1, duration: 0.5, ease: "power2.out" }
-      );
-    } else {
-      gsap.to(menuRef.current, {
-        height: 0,
-        opacity: 0,
-        duration: 0.4,
-        ease: "power2.in",
-      });
-    }
+    const menuAnimation = gsap.to(menuRef.current, {
+      height: navbarOpen ? "auto" : 0,
+      opacity: navbarOpen ? 1 : 0,
+      duration: navbarOpen ? 0.5 : 0.4,
+      ease: navbarOpen ? "power2.out" : "power2.in",
+    });
+
+    return () => {
+      menuAnimation.kill();
+    };
   }, [navbarOpen]);
 
   return (

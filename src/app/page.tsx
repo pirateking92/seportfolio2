@@ -1,5 +1,6 @@
 "use client";
 
+import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
 import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
@@ -16,11 +17,11 @@ import { useState, useEffect } from "react";
 
 const theatreProductionPages = [
   "wish-you-were-here",
-  // "i-am-lysistrata",
-  // "attempts-on-her-life",
-  // "habibti-driver",
-  // "darknet",
-  // "trust",
+  "i-am-lysistrata",
+  "attempts-on-her-life",
+  "habibti-driver",
+  "darknet",
+  "trust",
 ];
 
 const TheatreProductionsLandingPage = async () => {
@@ -39,7 +40,15 @@ const TheatreProductionsLandingPage = async () => {
     <div className="flex min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        <Carousel opts={{ loop: true }} className="w-full">
+        <Carousel
+          opts={{ loop: true }}
+          plugins={[
+            Autoplay({
+              delay: 4000,
+            }),
+          ]}
+          className="w-full"
+        >
           <CarouselContent>
             {pageData.map((page) => (
               <CarouselItem key={page.title} className="basis-full">

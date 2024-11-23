@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Carousel,
   CarouselContent,
@@ -21,51 +22,48 @@ interface GalleryProps {
   mediaItems: MediaItem[];
 }
 
-const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => {
+const Gallery = ({ mediaItems }: GalleryProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const handleSlideChange = (index: number) => {
-    setActiveIndex(index);
-  };
 
   return (
     <SmokeFadeIn>
-      <Carousel className="justify-center w-full">
+      <Carousel className="w-full justify-center">
         <CarouselContent>
-          {mediaItems.map((item, index) => {
-            return (
-              <CarouselItem
-                key={index}
-                // Added group class to enable hover effects on the entire carousel item
-                className="basis-1/2 relative w-full h-[calc(100vh-8rem)] group"
-              >
-                <Image
-                  src={item.sourceUrl}
-                  alt={item.title || "Gallery image"}
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
-                {/* Added new overlay div that appears on hover */}
-                {item.title && (
-                  <div
-                    className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 
-                        transition-opacity duration-300 flex items-center justify-center p-6"
-                  >
-                    {/* Caption text container */}
-                    <div className="font-bodyFont text-xl text-white text-center">
-                      {parse(item.title)}
-                    </div>
-                  </div>
-                )}
-              </CarouselItem>
-            );
-          })}
+          {mediaItems.map((item) => (
+            <CarouselItem
+              key={item.title || item.sourceUrl}
+              className="relative h-[calc(100vh-8rem)] w-full basis-1/2 group"
+            >
+              {/* Optimized Image usage */}
+              <Image
+                src={item.sourceUrl}
+                alt={item.title || "Gallery image"}
+                fill
+                style={{ objectFit: "cover" }}
+                placeholder="blur"
+                blurDataURL={item.sourceUrl} // Optional for image loading
+              />
+              {/* Hover overlay for captions */}
+              {item.title && (
+                <div
+                  className="absolute inset-0 flex items-center justify-center bg-black/70 
+                  p-6 text-center text-xl text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                >
+                  {parse(item.title)}
+                </div>
+              )}
+            </CarouselItem>
+          ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious
+          onClick={() => setActiveIndex((prev) => Math.max(prev - 1, 0))}
+        />
+        <CarouselNext
+          onClick={() =>
+            setActiveIndex((prev) => Math.min(prev + 1, mediaItems.length - 1))
+          }
+        />
       </Carousel>
-
-      {/* Removed the permanent caption display that was here */}
     </SmokeFadeIn>
   );
 };

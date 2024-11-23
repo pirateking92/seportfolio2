@@ -7,7 +7,7 @@ export default async function ContactPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex-grow">
+      <main className="flex-grow">
         <SmokeFadeIn>
           <Image
             src="/SepySits.jpg"
@@ -18,7 +18,7 @@ export default async function ContactPage() {
           />
         </SmokeFadeIn>
         <Contact />
-      </div>
+      </main>
     </div>
   );
 }
