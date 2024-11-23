@@ -45,6 +45,8 @@ const TheatreProductionsLandingPage = async () => {
           plugins={[
             Autoplay({
               delay: 3000,
+              // stopOnInteraction: true,
+              stopOnMouseEnter: true,
             }),
           ]}
           className="w-full"
