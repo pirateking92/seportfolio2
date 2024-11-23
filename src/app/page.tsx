@@ -44,7 +44,7 @@ const TheatreProductionsLandingPage = async () => {
           opts={{ loop: true }}
           plugins={[
             Autoplay({
-              delay: 4000,
+              delay: 3000,
             }),
           ]}
           className="w-full"
