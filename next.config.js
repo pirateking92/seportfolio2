@@ -4,7 +4,7 @@ const nextConfig = {
       remotePatterns: [
         {
           protocol: 'https',
-          hostname: 'sepybaghaei.co.uk',
+          hostname: 'cms.sepybaghaei.co.uk',
           port: '',
           pathname: '/wp-content/uploads/**',
         },
