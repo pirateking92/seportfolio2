@@ -13,10 +13,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-
-import { fetchMediaItems } from "@/lib/api";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import { Key } from "react";
 import Navbar from "@/components/Navbar";
 
 interface PageContentProps {
@@ -64,7 +60,7 @@ const getPageData = async (uri: string) => {
 };
 
 export default async function ProductionPage(props: {
-  params: { uri: string[] };
+  params: Promise<{ uri: string[] }>;
 }) {
   const { uri } = await props.params;
 
