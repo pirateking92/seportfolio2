@@ -1,10 +1,10 @@
 import ProductionsList from "@/components/ProductionsList";
 import { fetchMediaItems } from "@/lib/api";
-// export interface MediaItem {
-//   sourceUrl: string;
-//   caption: string;
-//   slug: string;
-// }
+export interface MediaItem {
+  sourceUrl: string;
+  caption: string;
+  slug: string;
+}
 
 // function createSlug(caption: string, id: string): string {
 //   if (!caption) {
