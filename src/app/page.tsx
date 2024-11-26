@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
 
-const theatreProductionPages = [
+export const theatreProductionPages = [
   "wish-you-were-here",
   "i-am-lysistrata",
   "attempts-on-her-life",

@@ -1,8 +1,23 @@
 import client from "../../../../apollo-client";
 import PageContent from "@/components/PageContent";
-import Navbar from "@/components/Navbar";
-import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
+import {
+  GET_PAGE_CAROUSEL_ITEMS,
+  GET_PAGE_IMAGE_AND_CONTENT,
+} from "@/lib/queries";
 import SmokeFadeIn from "@/components/SmokeFadeIn";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Image from "next/image";
+
+import { fetchMediaItems } from "@/lib/api";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { Key } from "react";
+import Navbar from "@/components/Navbar";
 
 interface PageContentProps {
   id: string;
@@ -11,15 +26,29 @@ interface PageContentProps {
   pageTitle: string;
   imageData: string;
 }
+const formatTitle = (uri: string) => {
+  return uri.split("/").pop()?.replace(/-/g, " ") || uri;
+};
 
 const getPageData = async (uri: string) => {
+  const formattedTitle = formatTitle(uri);
+
   const { data } = await client.query({
     query: GET_PAGE_IMAGE_AND_CONTENT,
     variables: { id: uri },
   });
 
-  if (!data || !data.page) {
-    return null;
+  const { data: carouselData } = await client.query({
+    query: GET_PAGE_CAROUSEL_ITEMS,
+    variables: { title: formattedTitle },
+  });
+
+  if (!data?.page) {
+    throw new Error(`No page found for URI: ${uri}`);
+  }
+
+  if (!carouselData?.mediaItems?.edges?.length) {
+    throw new Error(`No carousel images found for title: ${formattedTitle}`);
   }
 
   return {
@@ -28,33 +57,67 @@ const getPageData = async (uri: string) => {
     pageTitle: data.page.title,
     uri: data.page.uri,
     imageData: data.page.showInGallery.mainImage.node.sourceUrl,
+    carouselImages: carouselData.mediaItems.edges.map(
+      (edge: { node: { sourceUrl: string } }) => edge.node.sourceUrl
+    ),
   };
 };
 
 export default async function ProductionPage(props: {
-  params: Promise<{ uri: string[] }>;
+  params: { uri: string[] };
 }) {
   const { uri } = await props.params;
-  const pageData = await getPageData(uri.join("/"));
 
-  if (!pageData) {
-    return <div>Production Not Found</div>;
+  try {
+    const pageData = await getPageData(uri.join("/"));
+
+    return (
+      <div className="relative flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <SmokeFadeIn>
+            <Carousel
+              opts={{ loop: true }}
+              className="w-full h-full pt-24 justify justify-center items-center"
+            >
+              <CarouselContent className="-ml-1">
+                {pageData.carouselImages.map((imageUrl, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="flex pl-1 md:basis-1/2 lg:basis-1/3 items-center justify-center h-full w-full"
+                  >
+                    <div className="flex items-center justify-center w-full h-full">
+                      <Image
+                        src={imageUrl}
+                        alt={`Carousel image ${index + 1}`}
+                        height={600}
+                        width={600}
+                        className="object-contain max-w-full max-h-full rounded-md"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="opacity-15" />
+              <CarouselNext className="opacity-15" />
+            </Carousel>
+            <PageContent {...pageData} />
+          </SmokeFadeIn>
+          {pageData.imageData && (
+            <div className="absolute inset-0 bg-cover bg-bottom opacity-20 pointer-events-none"></div>
+          )}
+        </main>
+      </div>
+    );
+  } catch (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-xl">
+          {error instanceof Error
+            ? error.message
+            : "An unexpected error occurred"}
+        </p>
+      </div>
+    );
   }
-
-  return (
-    <div className="relative flex flex-col min-h-screen">
-      <Navbar />
-      <SmokeFadeIn>
-        <div className="flex flex-col pt-16 md:pt-20 justify-center items-center mx-auto w-full max-w-screen-lg px-4">
-          <PageContent {...pageData} />
-        </div>
-      </SmokeFadeIn>
-      {pageData.imageData && (
-        <div
-          className="absolute inset-0 bg-cover bg-bottom opacity-20 pointer-events-none"
-          // style={{ backgroundImage: `url(${pageData.imageData})` }}
-        ></div>
-      )}
-    </div>
-  );
 }

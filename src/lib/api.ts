@@ -30,7 +30,7 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
   return json.data;
 }
 
-export async function getPreviewPost(id, idType = "DATABASE_ID") {
+export async function getPreviewPost(id: any, idType = "DATABASE_ID") {
   const data = await fetchAPI(
     `
     query PreviewPost($id: ID!, $idType: PostIdType!) {
@@ -62,7 +62,7 @@ export async function getAllPostsWithSlug() {
   return data?.posts;
 }
 
-export async function getAllPostsForHome(preview) {
+export async function getAllPostsForHome(preview: any) {
   const data = await fetchAPI(
     `
     query AllPosts {
@@ -104,7 +104,11 @@ export async function getAllPostsForHome(preview) {
   return data?.posts;
 }
 
-export async function getPostAndMorePosts(slug, preview, previewData) {
+export async function getPostAndMorePosts(
+  slug: any,
+  preview: any,
+  previewData: { post: any }
+) {
   const postPreview = preview && previewData?.post;
   // The slug may be the id of an unpublished post
   const isId = Number.isInteger(Number(slug));

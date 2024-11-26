@@ -35,7 +35,17 @@ export const GET_ABOUT_PAGE = gql`
     }
   }
 `;
-
+export const GET_PAGE_CAROUSEL_ITEMS = gql`
+  query pageMedia($title: String = "") {
+    mediaItems(where: { title: $title }) {
+      edges {
+        node {
+          sourceUrl
+        }
+      }
+    }
+  }
+`;
 // Query for the CV page
 export const GET_CV_PAGE = gql`
   query GetCVPage {
