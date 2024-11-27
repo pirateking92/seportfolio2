@@ -20,7 +20,7 @@ const Contact = () => {
 
   return (
     <div className="w-full h-full items-center justify-center">
-      <SmokeFadeIn>
+      <SmokeFadeIn visibleOnLoad={true}>
         <form
           className="w-full max-w-md sm:max-w-lg mb-10 md:max-w-2xl lg:max-w-6xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-20"
           onSubmit={handleSubmit(onSubmit)}

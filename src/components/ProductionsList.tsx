@@ -20,7 +20,7 @@ export default function ProductionsList({
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   return (
-    <SmokeFadeIn>
+    <SmokeFadeIn visibleOnLoad={false}>
       <div className="flex min-h-screen flex-col">
         <Navbar />
         <main className="container mx-auto px-4">

@@ -8,7 +8,7 @@ export default async function ContactPage() {
     <div>
       <Navbar />
       <main className="flex-grow">
-        <SmokeFadeIn>
+        <SmokeFadeIn visibleOnLoad={true}>
           <Image
             src="/SepySits.jpg"
             alt="Sepy Directing"

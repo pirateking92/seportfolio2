@@ -1,13 +1,24 @@
 "use client";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
-const SmokeFadeIn = ({ children }: { children: ReactNode }) => {
+const SmokeFadeIn = ({
+  visibleOnLoad,
+  children,
+}: {
+  visibleOnLoad: boolean;
+  children: ReactNode;
+}) => {
+  const [isMounted, setIsMounted] = useState(false);
   const ref = React.useRef(null);
   const isInView = useInView(ref, {
     once: true,
     margin: "0px 0px -200px 0px",
   });
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const smokeVariants = {
     hidden: {
@@ -32,7 +43,13 @@ const SmokeFadeIn = ({ children }: { children: ReactNode }) => {
         ref={ref}
         variants={smokeVariants}
         initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        animate={
+          visibleOnLoad && isMounted
+            ? "visible"
+            : isInView
+            ? "visible"
+            : "hidden"
+        }
       >
         {children}
       </motion.div>

@@ -71,7 +71,7 @@ export default async function ProductionPage(props: {
       <div className="relative flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">
-          <SmokeFadeIn>
+          <SmokeFadeIn visibleOnLoad={false}>
             <Carousel
               opts={{ loop: true }}
               className="w-full h-full pt-24 justify justify-center items-center"
