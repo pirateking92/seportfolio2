@@ -15,7 +15,7 @@ const Name: React.FC<NameProps> = ({
   siteDescription,
   profilePicture,
 }) => (
-  <SmokeFadeIn>
+  <SmokeFadeIn visibleOnLoad={false}>
     <div>
       <div>
         <h1 className="py-5 text-4xl text-white font-bold mb-4 text-center">
