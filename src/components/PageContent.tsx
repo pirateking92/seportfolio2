@@ -8,12 +8,7 @@ interface PageContentProps {
   pageTitle: string;
 }
 
-const PageContent: React.FC<PageContentProps> = ({
-  id,
-  uri,
-  pageContent,
-  pageTitle,
-}) => (
+const PageContent = ({ id, uri, pageContent, pageTitle }) => (
   <div className="container mx-auto p-4">
     <div className="flex flex-col lg:flex-row lg:items-start">
       {/* Text content */}

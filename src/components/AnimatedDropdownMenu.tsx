@@ -12,7 +12,7 @@ interface DropdownMenuProps {
   links: NavLinkItem[];
 }
 
-const AnimatedDropdownMenu: React.FC<DropdownMenuProps> = ({ links }) => {
+const AnimatedDropdownMenu = ({ links }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);

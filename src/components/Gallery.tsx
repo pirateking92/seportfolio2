@@ -26,7 +26,7 @@ const Gallery = ({ mediaItems }: GalleryProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <SmokeFadeIn>
+    <SmokeFadeIn visibleOnLoad={false}>
       <Carousel className="w-full justify-center">
         <CarouselContent>
           {mediaItems.map((item) => (

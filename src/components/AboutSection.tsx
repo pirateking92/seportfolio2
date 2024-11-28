@@ -12,7 +12,7 @@ interface AboutProps {
 
 function AboutSection({ title, content, profilePicture }) {
   return (
-    <SmokeFadeIn>
+    <SmokeFadeIn visibleOnLoad={false}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8">
           {/* Profile Picture */}

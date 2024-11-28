@@ -76,7 +76,7 @@ export default async function AboutPage() {
   const { title, content, profilePicture } = await getPageData();
 
   return (
-    <SmokeFadeIn>
+    <SmokeFadeIn visibleOnLoad={false}>
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <div className="flex-grow">

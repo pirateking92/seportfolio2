@@ -30,7 +30,7 @@ export default function CVPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <SmokeFadeIn>
+      <SmokeFadeIn visibleOnLoad={false}>
         <div className="flex-grow pt-24 m-5 mb-6">
           {" "}
           {/* Moved padding here */}
