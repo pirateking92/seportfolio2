@@ -15,13 +15,13 @@ import {
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 
-interface PageContentProps {
-  id: string;
-  uri: string;
-  pageContent: string;
-  pageTitle: string;
-  imageData: string;
-}
+// interface PageContentProps {
+//   id: string;
+//   uri: string;
+//   pageContent: string;
+//   pageTitle: string;
+//   imageData: string;
+// }
 const formatTitle = (uri: string) => {
   return uri.split("/").pop()?.replace(/-/g, " ") || uri;
 };
@@ -74,21 +74,22 @@ export default async function ProductionPage(props: {
           <SmokeFadeIn visibleOnLoad={false}>
             <Carousel
               opts={{ loop: true }}
-              className="w-full h-full pt-24 justify justify-center items-center"
+              className=" w-full h-full pt-24 justify justify-center items-center"
             >
               <CarouselContent className="-ml-1">
                 {pageData.carouselImages.map((imageUrl, index) => (
                   <CarouselItem
                     key={index}
-                    className="flex pl-1 md:basis-1/2 lg:basis-1/3 items-center justify-center h-full w-full"
+                    className="flex pl-1 basis-1/3 items-center justify-center "
                   >
-                    <div className="flex items-center justify-center w-full h-full">
+                    <div className="contain flex items-center justify-center">
                       <Image
                         src={imageUrl}
                         alt={`Carousel image ${index + 1}`}
                         height={600}
                         width={600}
-                        className="object-contain max-w-full max-h-full rounded-md"
+                        objectFit="fill"
+                        className="rounded-md"
                       />
                     </div>
                   </CarouselItem>
