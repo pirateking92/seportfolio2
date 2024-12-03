@@ -65,8 +65,9 @@ const TheatreProductionsLandingPage = async () => {
                       <Image
                         src={page.showInGallery.mainImage.node.sourceUrl}
                         alt={page.title}
-                        fill
                         className="object-cover rounded-lg"
+                        fill
+                        loading="eager"
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 flex items-center justify-center transition-all duration-300">
                         <h3 className="text-white text-2xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">

@@ -16,13 +16,6 @@ import {
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 
-// interface PageContentProps {
-//   id: string;
-//   uri: string;
-//   pageContent: string;
-//   pageTitle: string;
-//   imageData: string;
-// }
 const formatTitle = (uri: string) => {
   return uri.split("/").pop()?.replace(/-/g, " ") || uri;
 };
@@ -87,6 +80,7 @@ export default async function ProductionPage(props: {
                       <CardContent className="h-full w-full flex items-center justify-center p-2">
                         <div className="h-full w-full flex items-center justify-center">
                           <Image
+                            loading="eager"
                             src={imageUrl}
                             alt={`Carousel image ${index + 1}`}
                             height={600}
