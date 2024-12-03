@@ -1,3 +1,4 @@
+import { Card, CardContent } from "@/components/ui/card";
 import client from "../../../../apollo-client";
 import PageContent from "@/components/PageContent";
 import {
@@ -82,21 +83,29 @@ export default async function ProductionPage(props: {
                     key={index}
                     className="flex pl-1 md:basis-1/2 lg:basis-1/3 items-center justify-center "
                   >
-                    <div className="contain flex items-center justify-center">
-                      <Image
-                        src={imageUrl}
-                        alt={`Carousel image ${index + 1}`}
-                        height={600}
-                        width={600}
-                        objectFit="fill"
-                        className="rounded-md"
-                      />
-                    </div>
+                    <Card className="h-[400px] bg-transparent flex items-center justify-center">
+                      <CardContent className="h-full w-full flex items-center justify-center p-2">
+                        <div className="h-full w-full flex items-center justify-center">
+                          <Image
+                            src={imageUrl}
+                            alt={`Carousel image ${index + 1}`}
+                            height={600}
+                            width={600}
+                            style={{
+                              maxHeight: "100%",
+                              maxWidth: "100%",
+                              objectFit: "contain",
+                            }}
+                            className="object-contain"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="opacity-15" />
-              <CarouselNext className="opacity-15" />
+              <CarouselPrevious className="opacity-40" />
+              <CarouselNext className="opacity-40" />
             </Carousel>
             <PageContent {...pageData} />
           </SmokeFadeIn>
