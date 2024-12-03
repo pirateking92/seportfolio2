@@ -10,3 +10,10 @@ I had some prior experience with Typescript, NextJS/React from making my own por
 I learnt a lot about component libraries, about using motion, fonts, and queries especially through graphql, to query the WPress CMS in order to populate my frontend with her content, possibly the most difficult part.
 
 It has been a fantastic learning experience, and has also given me the chance to work with someone who isn't an engineer or in tech. Real world experience that influenced the way that I work.
+
+## Technologies used
+
+- Typescript
+- NextJS 15 / React
+- Wordpress CMS
+- Tailwind
