@@ -80,7 +80,7 @@ export default async function ProductionPage(props: {
                 {pageData.carouselImages.map((imageUrl, index) => (
                   <CarouselItem
                     key={index}
-                    className="flex pl-1 basis-1/3 items-center justify-center "
+                    className="flex pl-1 md:basis-1/2 lg:basis-1/3 items-center justify-center "
                   >
                     <div className="contain flex items-center justify-center">
                       <Image
