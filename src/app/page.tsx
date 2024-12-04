@@ -1,5 +1,4 @@
 "use client";
-
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,17 +23,29 @@ const theatreProductionPages = [
   "darknet",
 ];
 
-const TheatreProductionsLandingPage = async () => {
-  // Fetch page data for each page in theatreProductionPages
-  const pageData = await Promise.all(
-    theatreProductionPages.map(async (pageSlug) => {
-      const { data } = await client.query({
-        query: GET_PAGE_IMAGE_AND_CONTENT,
-        variables: { id: pageSlug },
-      });
-      return data.page;
-    })
-  );
+const TheatreProductionsLandingPage = () => {
+  const [pageData, setPageData] = useState([]);
+  const [currentPath, setCurrentPath] = useState("");
+
+  useEffect(() => {
+    // Fetch page data for each page in theatreProductionPages
+    const fetchPageData = async () => {
+      const data = await Promise.all(
+        theatreProductionPages.map(async (pageSlug) => {
+          const { data } = await client.query({
+            query: GET_PAGE_IMAGE_AND_CONTENT,
+            variables: { id: pageSlug },
+          });
+          return data.page;
+        })
+      );
+      setPageData(data);
+    };
+
+    // Set the current path
+    setCurrentPath(window.location.pathname);
+    fetchPageData();
+  }, []);
 
   return (
     <div className="flex min-h-screen">
@@ -45,7 +56,6 @@ const TheatreProductionsLandingPage = async () => {
           plugins={[
             Autoplay({
               delay: 3000,
-              // stopOnInteraction: true,
               stopOnMouseEnter: true,
             }),
           ]}
@@ -65,7 +75,11 @@ const TheatreProductionsLandingPage = async () => {
                       <Image
                         src={page.showInGallery.mainImage.node.sourceUrl}
                         alt={page.title}
-                        className="object-cover rounded-lg"
+                        className={`object-cover rounded-lg ${
+                          currentPath === "/productions/i-am-lysistrata/"
+                            ? "object-top" // This will adjust the image to use the upper portion
+                            : "object-center"
+                        }`}
                         fill
                         loading="eager"
                       />
@@ -90,17 +104,14 @@ const TheatreProductionsLandingPage = async () => {
 
 export default function App() {
   const [isClient, setIsClient] = useState(false);
-  const [landingPage, setLandingPage] = useState<JSX.Element | null>(null);
 
   useEffect(() => {
     setIsClient(true);
-    // Load the TheatreProductionsLandingPage component dynamically
-    TheatreProductionsLandingPage().then((page) => setLandingPage(page));
   }, []);
 
   return (
     <div>
-      {isClient ? landingPage || <p>Loading...</p> : <p>Prerendered</p>}
+      {isClient ? <TheatreProductionsLandingPage /> : <p>Prerendered</p>}
     </div>
   );
 }
