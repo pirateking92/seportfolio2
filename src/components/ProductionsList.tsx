@@ -54,10 +54,12 @@ export default function ProductionsList() {
       </div>
     );
   }
-
+  const customStylePages = ["I Am Lysistrata", "Trust", "Darknet"];
   return (
-    <div className="flex min-h-screen flex-col">
-      <Navbar />
+    <div className="relative flex min-h-screen flex-col ">
+      <div className="relative z-50">
+        <Navbar />
+      </div>
       <main className="flex-grow relative pt-20">
         {pageData.map((page) => (
           <div
@@ -73,7 +75,12 @@ export default function ProductionsList() {
                 alt={page.title}
                 fill
                 className={`object-cover transition-opacity duration-500 
-                  ${hoveredItem === page.title ? "opacity-30" : "opacity-0"}`}
+                  ${hoveredItem === page.title ? "opacity-30" : "opacity-0"}
+                  ${
+                    customStylePages.includes(page.title)
+                      ? "object-[50%_15%]"
+                      : ""
+                  }`}
               />
             </div>
 
