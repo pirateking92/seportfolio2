@@ -22,11 +22,11 @@ const navLinks: NavLink[] = [
     title: "CV",
     path: "/cv",
   },
+  { title: "Productions", path: "/productions" },
   {
     title: "Contact",
     path: "/contact",
   },
-  { title: "Productions", path: "/productions" },
 ];
 
 const Navbar = () => {
