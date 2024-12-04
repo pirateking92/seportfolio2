@@ -77,7 +77,7 @@ export default async function ProductionPage(props: {
                     className="flex pl-1 md:basis-1/2 lg:basis-1/3 items-center justify-center "
                   >
                     <Card className="h-[400px] bg-transparent flex items-center justify-center">
-                      <CardContent className="h-full w-full flex items-center justify-center p-2">
+                      <CardContent className="h-full w-full flex items-center justify-center p-0">
                         <div className="h-full w-full flex items-center justify-center">
                           <Image
                             loading="eager"
@@ -88,9 +88,9 @@ export default async function ProductionPage(props: {
                             style={{
                               maxHeight: "100%",
                               maxWidth: "100%",
-                              objectFit: "contain",
+                              objectFit: "cover",
                             }}
-                            className="object-contain"
+                            className="object-cover"
                           />
                         </div>
                       </CardContent>
