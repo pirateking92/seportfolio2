@@ -22,7 +22,7 @@ const navLinks: NavLink[] = [
     title: "CV",
     path: "/cv",
   },
-  { title: "Productions", path: "/productions" },
+  // { title: "Productions", path: "/productions" },
   {
     title: "Contact",
     path: "/contact",
