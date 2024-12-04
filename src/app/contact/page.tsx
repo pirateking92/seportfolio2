@@ -14,7 +14,7 @@ export default async function ContactPage() {
             alt="Sepy Directing"
             width={600}
             height={400}
-            className="mx-auto p-5 m-20 "
+            className="mx-auto m-8 pt-10"
           />
         </SmokeFadeIn>
         <Contact />
