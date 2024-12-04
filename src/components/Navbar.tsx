@@ -26,6 +26,7 @@ const navLinks: NavLink[] = [
     title: "Contact",
     path: "/contact",
   },
+  { title: "Productions", path: "/productions" },
 ];
 
 const Navbar = () => {
