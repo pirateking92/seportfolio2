@@ -38,7 +38,7 @@ export default function CVPage() {
             {cvData?.title}
           </div>
           <div
-            className="prose-lg px-9 text-slate-300 sm:px-0"
+            className="prose-lg p-9 text-slate-300"
             dangerouslySetInnerHTML={{ __html: cvData?.content }}
           />
         </div>

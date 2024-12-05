@@ -77,8 +77,8 @@ const TheatreProductionsLandingPage = () => {
                         alt={page.title}
                         className={`object-cover rounded-lg ${
                           currentPath === "/productions/i-am-lysistrata/"
-                            ? "object-top" // This will adjust the image to use the upper portion
-                            : "object-center"
+                            ? "object-[50%_25%]" // This will adjust the image to use the upper portion
+                            : ""
                         }`}
                         fill
                         loading="eager"
