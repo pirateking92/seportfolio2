@@ -4,6 +4,7 @@ import Image from "next/image";
 import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
 import client from "../../apollo-client";
 import Navbar from "./Navbar";
+import Link from "next/link";
 
 // Theatre production pages to fetch
 const theatreProductionPages = [
@@ -95,7 +96,13 @@ export default function ProductionsList() {
                 }`}
             >
               <h2 className="text-4xl font-bold tracking-wide uppercase">
-                {page.title}
+                <Link
+                  href={`/productions/${encodeURIComponent(
+                    page.title.toLowerCase().replace(/\s/g, "-")
+                  )}`}
+                >
+                  {page.title}
+                </Link>
               </h2>
             </div>
           </div>
