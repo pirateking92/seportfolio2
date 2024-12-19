@@ -55,7 +55,11 @@ export default function ProductionsList() {
       </div>
     );
   }
-  const customStylePages = ["I Am Lysistrata", "Trust", "Darknet"];
+  const lysis = "I Am Lysistrata";
+  const trust = "Trust";
+  const aohl = "Attempts On Her Life";
+  const darknet = "Darknet";
+  const habibi = "Habibti Driver";
   return (
     <div className="relative flex min-h-screen flex-col ">
       <div className="relative z-50">
@@ -76,12 +80,12 @@ export default function ProductionsList() {
                 alt={page.title}
                 fill
                 className={`object-cover transition-opacity duration-500 
-                  ${hoveredItem === page.title ? "opacity-30" : "opacity-0"}
-                  ${
-                    customStylePages.includes(page.title)
-                      ? "object-[50%_15%]"
-                      : ""
-                  }`}
+                  ${hoveredItem === page.title ? "opacity-70" : "opacity-0"}
+                  ${lysis.includes(page.title) ? "object-[50%_25%]" : ""}${
+                  trust.includes(page.title) ? "object-[50%_30%]" : ""
+                }${aohl.includes(page.title) ? "object-[50%_35%]" : ""}${
+                  darknet.includes(page.title) ? "object-[50%_18%]" : ""
+                }${habibi.includes(page.title) ? "object-[50%_45%]" : ""}`}
               />
             </div>
 
