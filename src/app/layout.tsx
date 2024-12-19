@@ -4,7 +4,7 @@ import "/src/app/globals.css";
 import "flowbite/dist/flowbite.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { SpeedInsights } from "@vercel/speed-insights";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const headingFont = Indie_Flower({
   subsets: ["latin"],
