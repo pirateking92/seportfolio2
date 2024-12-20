@@ -56,7 +56,7 @@ const Footer = () => {
           target="_blank"
           className="text-sm text-white hover:text-gray-300 transition"
         >
-          Made by Matt Doyle
+          Designed by Matt Doyle
         </Link>
       </div>
 
