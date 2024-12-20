@@ -13,6 +13,7 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
+import SmokeFadeIn from "./SmokeFadeIn";
 
 const theatreProductionPages = [
   "wish-you-were-here",
@@ -48,7 +49,7 @@ const TheatreProductionsLandingPage = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex">
       <Navbar />
       <main className="flex-grow">
         <Carousel
@@ -81,7 +82,7 @@ const TheatreProductionsLandingPage = () => {
                             : ""
                         }`}
                         fill
-                        loading="eager"
+                        priority={pageData[0]?.title === page.title}
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 flex items-center justify-center transition-all duration-300">
                         <h3 className="text-white text-2xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">

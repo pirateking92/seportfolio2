@@ -80,7 +80,6 @@ export default async function ProductionPage(props: {
                       <CardContent className="h-full w-full flex items-center justify-center p-0">
                         <div className="h-full w-full flex items-center justify-center">
                           <Image
-                            loading="eager"
                             src={imageUrl}
                             alt={`Carousel image ${index + 1}`}
                             height={600}
