@@ -63,7 +63,6 @@ export default async function ProductionPage(props: {
 
     return (
       <div className="relative flex flex-col min-h-screen">
-        <Navbar />
         <main className="flex-grow">
           <SmokeFadeIn visibleOnLoad={false}>
             <Carousel

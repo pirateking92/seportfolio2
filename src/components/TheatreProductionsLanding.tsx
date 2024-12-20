@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
 import client from "../../apollo-client";
-import Navbar from "@/components/Navbar";
 import {
   Carousel,
   CarouselContent,
@@ -13,7 +12,6 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
-import SmokeFadeIn from "./SmokeFadeIn";
 
 const theatreProductionPages = [
   "wish-you-were-here",
@@ -24,7 +22,7 @@ const theatreProductionPages = [
   "darknet",
 ];
 
-const TheatreProductionsLandingPage = () => {
+export default function TheatreProductionsLandingPage() {
   const [pageData, setPageData] = useState([]);
   const [currentPath, setCurrentPath] = useState("");
 
@@ -50,7 +48,6 @@ const TheatreProductionsLandingPage = () => {
 
   return (
     <div className="flex">
-      <Navbar />
       <main className="flex-grow">
         <Carousel
           opts={{ loop: true }}
@@ -99,20 +96,6 @@ const TheatreProductionsLandingPage = () => {
           <CarouselNext />
         </Carousel>
       </main>
-    </div>
-  );
-};
-
-export default function App() {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  return (
-    <div>
-      {isClient ? <TheatreProductionsLandingPage /> : <p>Prerendered</p>}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import "/src/app/globals.css";
 import "flowbite/dist/flowbite.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LenisScrollProvider from "./providers/lenis-provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const headingFont = Indie_Flower({
@@ -34,9 +35,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${headingFont.variable} ${bodyFont.variable}`}>
       <body className="bg-black-to-navy flex flex-col min-h-screen bg-no-repeat bg-fixed">
-        <main className="flex-grow">{children}</main>
-        <Footer />
-        <SpeedInsights />
+        <LenisScrollProvider>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <SpeedInsights />
+        </LenisScrollProvider>
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
-import App from "@/components/TheatreProductionsLanding";
+import TheatreProductionsLandingPage from "@/components/TheatreProductionsLanding";
 
 export default function HomePage() {
-  return <App />;
+  return <TheatreProductionsLandingPage />;
 }

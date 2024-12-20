@@ -1,24 +1,5 @@
-import Contact from "@/components/Contact";
-import Navbar from "@/components/Navbar";
-import SmokeFadeIn from "@/components/SmokeFadeIn";
-import Image from "next/image";
+import CVPage from "@/components/CVPage";
 
-export default async function ContactPage() {
-  return (
-    <div>
-      <Navbar />
-      <main className="flex-grow">
-        <SmokeFadeIn visibleOnLoad={true}>
-          <Image
-            src="/SepySits.jpg"
-            alt="Sepy Directing"
-            width={600}
-            height={400}
-            className="mx-auto m-8 pt-10"
-          />
-        </SmokeFadeIn>
-        <Contact />
-      </main>
-    </div>
-  );
+export default function CVPAGE() {
+  return <CVPAGE />;
 }

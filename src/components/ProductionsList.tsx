@@ -62,9 +62,6 @@ export default function ProductionsList() {
   const habibi = "Habibti Driver";
   return (
     <div className="relative flex min-h-screen flex-col ">
-      <div className="relative z-50">
-        <Navbar />
-      </div>
       <main className="flex-grow relative pt-20">
         {pageData.map((page) => (
           <div

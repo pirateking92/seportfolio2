@@ -1,8 +1,7 @@
 "use client";
 
-import { GET_CV_PAGE } from "../../lib/queries";
-import client from "../../../apollo-client";
-import Navbar from "@/components/Navbar";
+import { GET_CV_PAGE } from "@/lib/queries";
+import client from "../../apollo-client";
 import { useEffect, useState } from "react";
 import SmokeFadeIn from "@/components/SmokeFadeIn";
 
