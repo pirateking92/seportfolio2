@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { gsap } from "gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 
 const Footer = () => {

@@ -29,14 +29,14 @@ export default function CVPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <SmokeFadeIn visibleOnLoad={false}>
-        <div className="flex-grow pt-24 m-5 mb-6">
+        <div className="flex-grow pt-24 m-5 mb-6 px-10">
           {" "}
           {/* Moved padding here */}
-          <div className="p-9 text-3xl text-slate-300 font-bold mb-4 text-left">
+          <div className="text-3xl text-slate-300 font-bold underline text-left">
             {cvData?.title}
           </div>
           <div
-            className="prose-lg p-9 text-slate-300"
+            className="prose-lg mt-10 text-slate-300"
             dangerouslySetInnerHTML={{ __html: cvData?.content }}
           />
         </div>
