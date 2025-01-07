@@ -1,5 +1,8 @@
 # Headless CMS Wordpress Backend/NextJS, Typescript, Tailwind Frontend
 
+## Table of Contents
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 ## Description
 
 Originally a sort of commission piece for my friend Sepy Baghaei, a successful theatre director based in London, it became a massive learning project for myself,
@@ -50,6 +53,7 @@ The site consists of five pages:
 The design of these pages also came from the research input of Sepy, having given some examples of other directors' sites that she was fond of in their design.
 
 ## Challenges
+
 The biggest challenge was learning to use the Wordpress CMS as a backend. I had no prior experience with it, so carried out much research, trial and error and assistance from friends and my mentor.
 
 Using GraphQL, which is a query plugin in Wordpress, to properly query the backend and retrieve the data needed was one of the larger challenges, but after a lot of trial and error regarding the syntax of the requests, it became easier to navigate.
@@ -58,7 +62,7 @@ Once I could properly query the backend, the next challenges came from implement
 
 One such was with the carousel on the main landing page. It went through about three different iterations before reaching what it looks like as of writing (Jan 2025). This is because the first couple of iterations were clunky in how they reacted to responsive environments, and simply because Sepy didn't like the way that they looked, which of course was important.
 
-This leads to the most enjoying challenge, which was working with Sepy, who has no experience with website design or coding, in creating the website. As a director, she was very articulate at expressing what she wanted the pages to look like, and it was my job to help her to reach whatever it is she wanted the pages to look like. Structure, design, responsiveness have all improved from her input. 
+This leads to the most enjoying challenge, which was working with Sepy, who has no experience with website design or coding, in creating the website. As a director, she was very articulate at expressing what she wanted the pages to look like, and it was my job to help her to reach whatever it is she wanted the pages to look like. Structure, design, responsiveness have all improved from her input.
 
 Structure in that the original MVP did not include as many pages and was fleshed out as Sepy decided what she wanted to appear on the site, as the project progressed.
 
