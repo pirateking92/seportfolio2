@@ -1,7 +1,14 @@
 # Headless CMS Wordpress Backend/NextJS, Typescript, Tailwind Frontend
 
 ## Table of Contents
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+- [Headless CMS Wordpress Backend/NextJS, Typescript, Tailwind Frontend](#headless-cms-wordpress-backendnextjs-typescript-tailwind-frontend)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Technologies used](#technologies-used)
+  - [Design](#design)
+  - [Challenges](#challenges)
+  - [Conclusions/What I Would Do Differently](#conclusionswhat-i-would-do-differently)
 
 ## Description
 
