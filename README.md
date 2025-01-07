@@ -4,6 +4,7 @@
 
 ## Table of Contents
 
+- [Headless CMS Wordpress Backend/NextJS, Typescript, Tailwind Frontend](#headless-cms-wordpress-backendnextjs-typescript-tailwind-frontend)
   - [Table of Contents](#table-of-contents)
   - [Description](#description)
   - [Technologies used](#technologies-used)
@@ -79,3 +80,22 @@ Design in that I asked Sepy to specifically look at fonts that would create the 
 Responsiveness in that Sepy is the one that addressed slow loading times for the landing page, and so I looked at ways to improve this, implementing speed insights through vercel, where the page is deployed, and adjusting image optimisation and loading so as to make the landing page load faster.
 
 ## Conclusions/What I Would Do Differently
+
+There were a lot of major learning curves that I experienced with this project. One such was the deployment through IONOS, which Sepy had since the very beginning of the original wordpress site.
+
+In deploying for the first time, I had made a mistake with the ports and DNS settings and had seemingly lost all of the backend, as well as access to it through the wordpress CMS. I was in a major panic and spent the evening trying to fix it, which after a phone call to IONOS and some googling, I was able to do.
+
+I mention this part in particular because it is because of these stressful mistakes that I was able to learn so much.
+
+If I were to repeat this process again for this site, I would have liked to work more with another engineer. I realised a lot more during this process how much nicer it would have been to collaborate with another engineer on it, be it on understanding the backend more, or having access to a more experienced person's knowledge, that would have cut down on time more.
+
+I also tried my best to adhere to a time structure, initially trying 2 week sprints in order to keep myself focussed. Sepy did not need the site in any amount of time though, so there were no hard deadlines, which meant that I wasn't so rigid on getting it done. On subsequent projects, I hope to be better at this, and see the benefit of working within a team with strong deadlines.
+
+I particularly tried to limit how much AI support I used during this process, electing to use it predominantly to answer questions that a series of googling would have done, but quicker, and helping condense error messages or to understand about react components that I had never used before.
+This helped my learning greatly.
+
+Overall, I'm quite happy with it, but there are some things that could be improved:
+
+- contact page design
+- cv page design
+- style issues across responsive elements (e.g. dropdown menu)
