@@ -1,8 +1,9 @@
 # Headless CMS Wordpress Backend/NextJS, Typescript, Tailwind Frontend
 
+[Sepy Baghaei - Theatre Director based in London (designed my Matt Doyle)](https://sepybaghaei.co.uk/)
+
 ## Table of Contents
 
-- [Headless CMS Wordpress Backend/NextJS, Typescript, Tailwind Frontend](#headless-cms-wordpress-backendnextjs-typescript-tailwind-frontend)
   - [Table of Contents](#table-of-contents)
   - [Description](#description)
   - [Technologies used](#technologies-used)
