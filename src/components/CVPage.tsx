@@ -1,43 +1,42 @@
+// components/CVPage.tsx
 "use client";
-
-import { GET_CV_PAGE } from "@/lib/queries";
-import client from "../../apollo-client";
-import { useEffect, useState } from "react";
+import { type ReactNode } from "react";
 import SmokeFadeIn from "@/components/SmokeFadeIn";
 
-export default function CVPage() {
-  // have to set the types of two variables now for the useState
-  const [cvData, setCvData] = useState<{
-    title: string;
-    content: string;
-  } | null>(null);
+// Define the shape of our data using TypeScript
+interface CVData {
+  title: string;
+  content: string;
+}
 
-  useEffect(() => {
-    async function fetchCVData() {
-      const { data } = await client.query({
-        query: GET_CV_PAGE,
-      });
-      // within this part, we can have multiple variable for the multiple queries
-      setCvData({
-        title: data.page.title || "Untitled",
-        content: data.page.content || "No content found",
-      });
-    }
-    fetchCVData();
-  }, []);
+interface CVPageProps {
+  initialData: CVData | null;
+}
+
+export default function CVPage({ initialData }: CVPageProps) {
+  // No more useState or useEffect needed since we receive data as props
+
+  // If we somehow don't have data, we can show a simple message
+  if (!initialData) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <div className="flex-grow pt-24 m-5 mb-6 px-10">
+          <div className="text-slate-300">Unable to load CV data</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
       <SmokeFadeIn visibleOnLoad={false}>
         <div className="flex-grow pt-24 m-5 mb-6 px-10">
-          {" "}
-          {/* Moved padding here */}
           <div className="text-3xl text-slate-300 font-bold underline text-left">
-            {cvData?.title}
+            {initialData.title}
           </div>
           <div
             className="prose-lg mt-10 text-slate-300"
-            dangerouslySetInnerHTML={{ __html: cvData?.content }}
+            dangerouslySetInnerHTML={{ __html: initialData.content }}
           />
         </div>
       </SmokeFadeIn>

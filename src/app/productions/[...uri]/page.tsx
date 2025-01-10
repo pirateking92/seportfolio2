@@ -17,11 +17,9 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 // Implement generateMetadata
-export async function generateMetadata(
-  props: {
-    params: Promise<{ uri: string[] }>;
-  }
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ uri: string[] }>;
+}): Promise<Metadata> {
   const params = await props.params;
   const pageData = await getPageData(params.uri.join("/"));
 
@@ -105,6 +103,8 @@ export default async function ProductionPage(props: {
                             alt={`Carousel image ${index + 1}`}
                             height={600}
                             width={600}
+                            priority={index === 0}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             style={{
                               maxHeight: "100%",
                               maxWidth: "100%",

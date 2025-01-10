@@ -1,92 +1,47 @@
+// ProductionsList.tsx
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
-import client from "../../apollo-client";
-import Navbar from "./Navbar";
 import Link from "next/link";
 
-// Theatre production pages to fetch
-const theatreProductionPages = [
-  "wish-you-were-here",
-  "habibti-driver",
-  "i-am-lysistrata",
-  "trust",
-  "attempts-on-her-life",
-  "darknet",
-];
+interface ProductionsListProps {
+  initialData: any[]; // Replace 'any' with your proper type definition
+}
 
-export default function ProductionsList() {
-  const [pageData, setPageData] = useState([]);
+export default function ProductionsList({ initialData }: ProductionsListProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    // Fetch page data for each page in theatreProductionPages
-    const fetchPageData = async () => {
-      try {
-        const data = await Promise.all(
-          theatreProductionPages.map(async (pageSlug) => {
-            const { data } = await client.query({
-              query: GET_PAGE_IMAGE_AND_CONTENT,
-              variables: { id: pageSlug },
-            });
-            return data.page;
-          })
-        );
-        setPageData(data);
-      } catch (error) {
-        console.error("Error fetching production data:", error);
-      }
-    };
+  // Move these constants outside the component or into a config file
+  const imagePositions = {
+    "I Am Lysistrata": "object-[50%_25%]",
+    Trust: "object-[50%_30%]",
+    "Attempts On Her Life": "object-[50%_35%]",
+    Darknet: "object-[50%_18%]",
+    "Habibti Driver": "object-[50%_45%]",
+  };
 
-    // Set client-side rendering flag
-    setIsClient(true);
-
-    // Fetch the page data
-    fetchPageData();
-  }, []);
-
-  // If not client-side or no data, return loading state
-  if (!isClient || pageData.length === 0) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-black text-white">
-        Loading productions...
-      </div>
-    );
-  }
-  const lysis = "I Am Lysistrata";
-  const trust = "Trust";
-  const aohl = "Attempts On Her Life";
-  const darknet = "Darknet";
-  const habibi = "Habibti Driver";
   return (
-    <div className="relative flex min-h-screen flex-col ">
+    <div className="relative flex min-h-screen flex-col">
       <main className="flex-grow relative text-center pt-20">
-        {pageData.map((page) => (
+        {initialData.map((page) => (
           <div
             key={page.title}
             className="relative w-full h-[16.6vh] overflow-hidden group"
             onMouseEnter={() => setHoveredItem(page.title)}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            {/* Background Image Layer */}
             <div className="absolute inset-0 z-10">
               <Image
                 src={page.showInGallery.mainImage.node.sourceUrl}
                 alt={page.title}
                 fill
+                priority={true} // Add priority for images above the fold
+                sizes="100vw" // Add sizes prop for better resource hints
                 className={`object-cover transition-opacity duration-500 
                   ${hoveredItem === page.title ? "opacity-70" : "opacity-0"}
-                  ${lysis.includes(page.title) ? "object-[50%_25%]" : ""}${
-                  trust.includes(page.title) ? "object-[50%_30%]" : ""
-                }${aohl.includes(page.title) ? "object-[50%_35%]" : ""}${
-                  darknet.includes(page.title) ? "object-[50%_18%]" : ""
-                }${habibi.includes(page.title) ? "object-[50%_45%]" : ""}`}
+                  ${imagePositions[page.title] || ""}`}
               />
             </div>
-
-            {/* Title Layer */}
             <div
               className={`absolute inset-0 z-20 flex items-center justify-center 
                 transition-all duration-500 
@@ -101,6 +56,7 @@ export default function ProductionsList() {
                   href={`/productions/${encodeURIComponent(
                     page.title.toLowerCase().replace(/\s/g, "-")
                   )}`}
+                  prefetch={true}
                 >
                   {page.title}
                 </Link>
