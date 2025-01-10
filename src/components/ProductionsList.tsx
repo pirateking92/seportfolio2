@@ -62,7 +62,7 @@ export default function ProductionsList() {
   const habibi = "Habibti Driver";
   return (
     <div className="relative flex min-h-screen flex-col ">
-      <main className="flex-grow relative pt-20">
+      <main className="flex-grow relative text-center pt-20">
         {pageData.map((page) => (
           <div
             key={page.title}
@@ -96,7 +96,7 @@ export default function ProductionsList() {
                     : "bg-transparent text-slate-300"
                 }`}
             >
-              <h2 className="text-4xl font-bold tracking-wide uppercase">
+              <div className="text-4xl tracking-wide">
                 <Link
                   href={`/productions/${encodeURIComponent(
                     page.title.toLowerCase().replace(/\s/g, "-")
@@ -104,7 +104,7 @@ export default function ProductionsList() {
                 >
                   {page.title}
                 </Link>
-              </h2>
+              </div>
             </div>
           </div>
         ))}

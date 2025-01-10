@@ -4,18 +4,6 @@ import CarouselClient from "@/components/CarouselClient";
 import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
 import client from "../../apollo-client";
 
-// Move this to a separate types file
-type PageData = {
-  title: string;
-  showInGallery: {
-    mainImage: {
-      node: {
-        sourceUrl: string;
-      };
-    };
-  };
-};
-
 async function getProductionsData() {
   const theatreProductionPages = [
     "wish-you-were-here",

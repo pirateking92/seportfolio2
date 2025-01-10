@@ -14,7 +14,28 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
+import type { Metadata } from "next";
+
+// Implement generateMetadata
+export async function generateMetadata({
+  params,
+}: {
+  params: { uri: string[] };
+}): Promise<Metadata> {
+  const pageData = await getPageData(params.uri.join("/"));
+
+  return {
+    title: `${pageData.pageTitle} | Productions | Sepy Baghaei`,
+    description:
+      pageData.pageContent.replace(/<[^>]+>/g, "").slice(0, 155) + "...",
+    openGraph: {
+      images: [{ url: pageData.imageData }],
+    },
+  };
+}
+
+// Add revalidation
+export const revalidate = 3600; // Revalidate every hour
 
 const formatTitle = (uri: string) => {
   return uri.split("/").pop()?.replace(/-/g, " ") || uri;

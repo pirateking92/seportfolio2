@@ -6,7 +6,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LenisScrollProvider from "./providers/lenis-provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { headers } from "next/headers";
 import client from "../../apollo-client";
 import { GET_PAGE_IMAGE_AND_CONTENT } from "@/lib/queries";
 
@@ -14,12 +13,14 @@ const headingFont = Indie_Flower({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-headingFont",
+  display: "swap",
 });
 
 const bodyFont = Alegreya({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-bodyfont",
+  display: "swap",
 });
 
 export const metadata = {

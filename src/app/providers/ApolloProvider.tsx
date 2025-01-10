@@ -10,3 +10,4 @@ const CustomApolloProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default CustomApolloProvider;
+

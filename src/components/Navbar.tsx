@@ -111,7 +111,7 @@ const Navbar = () => {
   return (
     <nav
       ref={navbarRef}
-      className="fixed top-0 left-0 right-0 z-20 bg-black bg-opacity-50 mb-5"
+      className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 mb-5"
     >
       {/* Rest of your JSX remains the same */}
       <div className="flex container items-center justify-between mx-auto p-4">
