@@ -17,11 +17,12 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 // Implement generateMetadata
-export async function generateMetadata({
-  params,
-}: {
-  params: { uri: string[] };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ uri: string[] }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const pageData = await getPageData(params.uri.join("/"));
 
   return {
