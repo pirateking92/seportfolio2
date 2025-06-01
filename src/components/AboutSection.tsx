@@ -4,12 +4,13 @@
 import SmokeFadeIn from "./SmokeFadeIn";
 import Image from "next/image";
 
-interface AboutProps {
-  title: string;
-  content: string;
-  profilePicture: string;
-}
+// interface AboutProps {
+//   title: string;
+//   content: string;
+//   profilePicture: string;
+// }
 
+// todo Do this do the same as the other components
 function AboutSection({ title, content, profilePicture }) {
   return (
     <SmokeFadeIn visibleOnLoad={false}>

@@ -25,7 +25,7 @@ const bodyFont = Alegreya({
 
 export const metadata = {
   title: "Sepy Baghaei",
-  description: "A portfolio website for Sepy Baghaei, based in London,",
+  description: "Sepy Baghaei, theatre director & playwright based in London",
   icons: {
     icon: "/2.png",
   },
