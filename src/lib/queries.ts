@@ -58,7 +58,7 @@ export const GET_CV_PAGE = gql`
 
 // Media items query, gets every item from the website
 export const GET_ALL_MEDIA_ITEMS = gql`
-  query GetMediaItems($first: Int, $after: String) {
+  query GetMediaItems($first: Int = 100, $after: String) {
     mediaItems(first: $first, after: $after) {
       pageInfo {
         hasNextPage
