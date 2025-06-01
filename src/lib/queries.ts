@@ -36,8 +36,8 @@ export const GET_ABOUT_PAGE = gql`
   }
 `;
 export const GET_PAGE_CAROUSEL_ITEMS = gql`
-  query pageMedia($title: String = "") {
-    mediaItems(where: { title: $title }) {
+  query pageMedia($title: String = "", $first: Int = 100) {
+    mediaItems(where: { title: $title }, first: $first) {
       edges {
         node {
           sourceUrl
