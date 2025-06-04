@@ -147,3 +147,13 @@ export const GET_PAGE_DATA_AND_CAROUSEL = gql`
     }
   }
 `;
+
+export const GET_ALL_PAGE_URIS = gql`
+  query GetAllPageURIs {
+    pages {
+      nodes {
+        uri
+      }
+    }
+  }
+`;
