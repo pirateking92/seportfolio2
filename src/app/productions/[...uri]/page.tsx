@@ -16,25 +16,52 @@ import {
 import Image from "next/image";
 import type { Metadata } from "next";
 
-// Implement generateMetadata
+// Force static generation and add revalidation
+export const dynamic = "force-static";
+export const revalidate = 3600; // Revalidate every hour
+
+// Generate static params for known production pages
+export async function generateStaticParams() {
+  // Replace these with your actual production page URIs
+  return [
+    { uri: ["wish-you-were-here"] },
+    // Add all your production pages here manually
+    // This will pre-generate them at build time
+  ];
+}
+
+// Implement generateMetadata with error handling
 export async function generateMetadata(props: {
   params: Promise<{ uri: string[] }>;
 }): Promise<Metadata> {
-  const params = await props.params;
-  const pageData = await getPageData(params.uri.join("/"));
+  try {
+    const params = await props.params;
 
-  return {
-    title: `${pageData.pageTitle} | Productions | Sepy Baghaei`,
-    description:
-      pageData.pageContent.replace(/<[^>]+>/g, "").slice(0, 155) + "...",
-    openGraph: {
-      images: [{ url: pageData.imageData }],
-    },
-  };
+    if (!params?.uri || !Array.isArray(params.uri)) {
+      return {
+        title: "Productions | Sepy Baghaei",
+        description: "Production gallery",
+      };
+    }
+
+    const pageData = await getPageData(params.uri.join("/"));
+
+    return {
+      title: `${pageData.pageTitle} | Productions | Sepy Baghaei`,
+      description:
+        pageData.pageContent.replace(/<[^>]+>/g, "").slice(0, 155) + "...",
+      openGraph: {
+        images: [{ url: pageData.imageData }],
+      },
+    };
+  } catch (error) {
+    console.error("Error generating metadata:", error);
+    return {
+      title: "Productions | Sepy Baghaei",
+      description: "Production gallery",
+    };
+  }
 }
-
-// Add revalidation
-export const revalidate = 3600; // Revalidate every hour
 
 const formatTitle = (uri: string) => {
   return uri.split("/").pop()?.replace(/-/g, " ") || uri;
@@ -43,43 +70,62 @@ const formatTitle = (uri: string) => {
 const getPageData = async (uri: string) => {
   const formattedTitle = formatTitle(uri);
 
-  const { data } = await client.query({
-    query: GET_PAGE_IMAGE_AND_CONTENT,
-    variables: { id: uri },
-  });
+  try {
+    // Run both queries in parallel with caching
+    const [pageResult, carouselResult] = await Promise.all([
+      client.query({
+        query: GET_PAGE_IMAGE_AND_CONTENT,
+        variables: { id: uri },
+        fetchPolicy: "cache-first", // Use cache if available
+        errorPolicy: "all",
+      }),
+      client.query({
+        query: GET_PAGE_CAROUSEL_ITEMS,
+        variables: { title: formattedTitle },
+        fetchPolicy: "cache-first", // Use cache if available
+        errorPolicy: "all",
+      }),
+    ]);
 
-  const { data: carouselData } = await client.query({
-    query: GET_PAGE_CAROUSEL_ITEMS,
-    variables: { title: formattedTitle },
-  });
+    if (!pageResult.data?.page) {
+      throw new Error(`No page found for URI: ${uri}`);
+    }
 
-  if (!data?.page) {
-    throw new Error(`No page found for URI: ${uri}`);
+    if (!carouselResult.data?.mediaItems?.edges?.length) {
+      throw new Error(`No carousel images found for title: ${formattedTitle}`);
+    }
+
+    return {
+      id: pageResult.data.page.id,
+      pageContent: pageResult.data.page.content,
+      pageTitle: pageResult.data.page.title,
+      uri: pageResult.data.page.uri,
+      imageData: pageResult.data.page.showInGallery.mainImage.node.sourceUrl,
+      carouselImages: carouselResult.data.mediaItems.edges.map(
+        (edge: { node: { sourceUrl: string } }) => edge.node.sourceUrl,
+      ),
+    };
+  } catch (error) {
+    console.error("Error fetching page data:", error);
+    throw error;
   }
-
-  if (!carouselData?.mediaItems?.edges?.length) {
-    throw new Error(`No carousel images found for title: ${formattedTitle}`);
-  }
-
-  return {
-    id: data.page.id,
-    pageContent: data.page.content,
-    pageTitle: data.page.title,
-    uri: data.page.uri,
-    imageData: data.page.showInGallery.mainImage.node.sourceUrl,
-    carouselImages: carouselData.mediaItems.edges.map(
-      (edge: { node: { sourceUrl: string } }) => edge.node.sourceUrl
-    ),
-  };
 };
 
 export default async function ProductionPage(props: {
   params: Promise<{ uri: string[] }>;
 }) {
-  const { uri } = await props.params;
-
   try {
-    const pageData = await getPageData(uri.join("/"));
+    const params = await props.params;
+
+    if (!params?.uri || !Array.isArray(params.uri)) {
+      return (
+        <div className="flex justify-center items-center min-h-screen">
+          <p className="text-red-500 text-xl">Invalid page parameters</p>
+        </div>
+      );
+    }
+
+    const pageData = await getPageData(params.uri.join("/"));
 
     return (
       <div className="relative flex flex-col min-h-screen">
@@ -103,7 +149,8 @@ export default async function ProductionPage(props: {
                             alt={`Carousel image ${index + 1}`}
                             height={600}
                             width={600}
-                            priority={index === 0}
+                            priority={index === 0} // Only first image gets priority
+                            loading={index < 3 ? "eager" : "lazy"} // First 3 load eagerly, rest lazy
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             style={{
                               maxHeight: "100%",
@@ -111,6 +158,8 @@ export default async function ProductionPage(props: {
                               objectFit: "cover",
                             }}
                             className="object-cover"
+                            placeholder="blur"
+                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyEkJHrms6dAiz36ags2mEohd8v/9k="
                           />
                         </div>
                       </CardContent>
@@ -130,6 +179,7 @@ export default async function ProductionPage(props: {
       </div>
     );
   } catch (error) {
+    console.error("Production page error:", error);
     return (
       <div className="flex justify-center items-center min-h-screen">
         <p className="text-red-500 text-xl">
