@@ -20,6 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 async function getProductionsData() {
   const theatreProductionPages = [
+    "daytime-deewane",
     "wish-you-were-here",
     "habibti-driver",
     "i-am-lysistrata",
@@ -36,7 +37,7 @@ async function getProductionsData() {
           variables: { id: pageSlug },
         });
         return data.page;
-      }),
+      })
     );
     return data;
   } catch (error) {

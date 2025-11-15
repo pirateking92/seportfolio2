@@ -124,7 +124,7 @@ export const GET_PAGE_IMAGE_AND_CONTENT = gql`
 `;
 
 export const GET_PAGE_DATA_AND_CAROUSEL = gql`
-  query GetPageDataAndCarousel($uri: String!, $title: String!) {
+  query GetPageDataAndCarousel($uri: ID!, $title: String!) {
     page: page(id: $uri, idType: URI) {
       id
       content

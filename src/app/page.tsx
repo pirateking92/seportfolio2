@@ -6,6 +6,7 @@ import client from "../../apollo-client";
 
 async function getProductionsData() {
   const theatreProductionPages = [
+    "daytime-deewane",
     "wish-you-were-here",
     "habibti-driver",
     "i-am-lysistrata",
