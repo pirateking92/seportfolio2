@@ -1,4 +1,3 @@
-// loading.tsx (in the same directory as your page)
 export default function Loading() {
   return (
     <div className="relative flex flex-col min-h-screen animate-pulse">

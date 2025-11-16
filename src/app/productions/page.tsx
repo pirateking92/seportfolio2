@@ -20,8 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 async function getProductionsData() {
   const theatreProductionPages = [
-    "daytime-deewane",
     "wish-you-were-here",
+    "daytime-deewane",
     "habibti-driver",
     "i-am-lysistrata",
     "trust",

@@ -71,7 +71,6 @@ const getPageData = async (uri: string) => {
   const formattedTitle = formatTitle(uri);
 
   try {
-    // Run both queries in parallel with caching
     const [pageResult, carouselResult] = await Promise.all([
       client.query({
         query: GET_PAGE_IMAGE_AND_CONTENT,
@@ -102,7 +101,7 @@ const getPageData = async (uri: string) => {
       uri: pageResult.data.page.uri,
       imageData: pageResult.data.page.showInGallery.mainImage.node.sourceUrl,
       carouselImages: carouselResult.data.mediaItems.edges.map(
-        (edge: { node: { sourceUrl: string } }) => edge.node.sourceUrl,
+        (edge: { node: { sourceUrl: string } }) => edge.node.sourceUrl
       ),
     };
   } catch (error) {
@@ -126,6 +125,16 @@ export default async function ProductionPage(props: {
     }
 
     const pageData = await getPageData(params.uri.join("/"));
+
+    const imagePositions: Record<string, Record<number, string>> = {
+      "Daytime Deewane": {
+        1: "object-[50%_20%]",
+        2: "object-[20%_70%]",
+        3: "object-[50%_38%]",
+        7: "object-[50%_30%]",
+        10: "object-[50%_38%]",
+      },
+    };
 
     return (
       <div className="relative flex flex-col min-h-screen">
@@ -157,7 +166,9 @@ export default async function ProductionPage(props: {
                               maxWidth: "100%",
                               objectFit: "cover",
                             }}
-                            className="object-cover"
+                            className={`object-contain ${
+                              imagePositions[pageData.pageTitle]?.[index] || ""
+                            }`}
                             placeholder="blur"
                             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyEkJHrms6dAiz36ags2mEohd8v/9k="
                           />

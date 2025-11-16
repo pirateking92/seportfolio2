@@ -5,13 +5,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProductionsListProps {
-  initialData: any[]; // Replace 'any' with your proper type definition
+  initialData: any[];
 }
 
 export default function ProductionsList({ initialData }: ProductionsListProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
-  // Move these constants outside the component or into a config file
+  // Add this to debug - remove after fixing
+  console.log(
+    "Productions order:",
+    initialData.map((p) => p.title)
+  );
+
   const imagePositions = {
     "I Am Lysistrata": "object-[50%_25%]",
     Trust: "object-[50%_30%]",
@@ -23,9 +28,9 @@ export default function ProductionsList({ initialData }: ProductionsListProps) {
   return (
     <div className="relative flex min-h-screen flex-col">
       <main className="flex-grow relative text-center pt-20">
-        {initialData.map((page) => (
+        {initialData.map((page, index) => (
           <div
-            key={page.title}
+            key={`${page.slug || page.title}-${index}`} // Use slug or add index for stable keys
             className="relative w-full h-[16.6vh] overflow-hidden group"
             onMouseEnter={() => setHoveredItem(page.title)}
             onMouseLeave={() => setHoveredItem(null)}
@@ -35,8 +40,8 @@ export default function ProductionsList({ initialData }: ProductionsListProps) {
                 src={page.showInGallery.mainImage.node.sourceUrl}
                 alt={page.title}
                 fill
-                priority={true} // Add priority for images above the fold
-                sizes="100vw" // Add sizes prop for better resource hints
+                priority={index < 3}
+                sizes="100vw"
                 className={`object-cover transition-opacity duration-500 
                   ${hoveredItem === page.title ? "opacity-70" : "opacity-0"}
                   ${imagePositions[page.title] || ""}`}
@@ -53,9 +58,12 @@ export default function ProductionsList({ initialData }: ProductionsListProps) {
             >
               <div className="text-4xl tracking-wide">
                 <Link
-                  href={`/productions/${encodeURIComponent(
-                    page.title.toLowerCase().replace(/\s/g, "-")
-                  )}`}
+                  href={`/productions/${
+                    page.slug ||
+                    encodeURIComponent(
+                      page.title.toLowerCase().replace(/\s/g, "-")
+                    )
+                  }`}
                   prefetch={true}
                 >
                   {page.title}
