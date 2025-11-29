@@ -95,6 +95,23 @@ const getPageData = async (uri: string) => {
   }
 };
 
+// Production-level defaults
+const productionDefaults: Record<
+  string,
+  {
+    cardHeight?: string;
+    carouselBasis?: string;
+    position?: string;
+  }
+> = {
+  "Daytime Deewane": {
+    cardHeight: "h-[500px]",
+    carouselBasis: "md:basis-1/2 lg:basis-1/3",
+    position: "object-contain h-auto max-h-full w-auto max-w-full",
+  },
+};
+
+// Image-specific overrides
 const imageStyles: Record<
   string,
   Record<
@@ -107,41 +124,23 @@ const imageStyles: Record<
   >
 > = {
   "Daytime Deewane": {
-    1: {
-      position: "object-contain h-auto max-h-full w-auto max-w-full",
-      carouselBasis: "basis-auto",
-    },
-    2: {
-      position: "object-contain h-auto max-h-full w-auto max-w-full",
-      carouselBasis: "basis-auto",
-    },
-    3: {
-      position: "object-contain h-auto max-h-full w-auto max-w-full",
-      carouselBasis: "basis-auto",
-    },
     4: {
       position: "object-contain h-[110%] max-h-full w-auto max-w-full",
-      carouselBasis: "basis-auto",
     },
     7: {
       position: "object-contain h-auto max-h-[90%] w-auto max-w-full",
-      carouselBasis: "basis-auto",
     },
     8: {
       position: "object-contain h-auto max-h-[90%] w-auto max-w-full",
-      carouselBasis: "basis-auto",
     },
     9: {
       position: "object-contain h-auto max-h-[90%] w-auto max-w-full",
-      carouselBasis: "basis-auto",
     },
     10: {
       position: "object-contain h-auto max-h-[90%] w-auto max-w-full",
-      carouselBasis: "basis-auto",
     },
     11: {
       position: "object-contain h-auto max-h-[90%] w-auto max-w-full",
-      carouselBasis: "basis-auto",
     },
   },
 };
@@ -170,18 +169,23 @@ export default async function ProductionPage(props: {
             >
               <CarouselContent className="-ml-1">
                 {pageData.carouselImages.map((imageUrl, index) => {
+                  const defaults = productionDefaults[pageData.pageTitle];
                   const styles = imageStyles[pageData.pageTitle]?.[index];
 
                   return (
                     <CarouselItem
                       key={index}
                       className={`flex pl-1 items-center justify-center ${
-                        styles?.carouselBasis || "md:basis-1/2 lg:basis-1/3"
+                        styles?.carouselBasis ||
+                        defaults?.carouselBasis ||
+                        "md:basis-1/2 lg:basis-1/3"
                       }`}
                     >
                       <Card
                         className={`bg-transparent flex items-center justify-center ${
-                          styles?.cardHeight || "h-[400px]"
+                          styles?.cardHeight ||
+                          defaults?.cardHeight ||
+                          "h-[400px]"
                         }`}
                       >
                         <CardContent className="h-full w-full flex items-center justify-center p-0">
@@ -199,7 +203,9 @@ export default async function ProductionPage(props: {
                                 maxWidth: "100%",
                               }}
                               className={
-                                styles?.position || "object-cover object-center"
+                                styles?.position ||
+                                defaults?.position ||
+                                "object-cover object-center"
                               }
                               placeholder="blur"
                               blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyEkJHrms6dAiz36ags2mEohd8v/9k="
