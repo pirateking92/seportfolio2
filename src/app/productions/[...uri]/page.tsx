@@ -180,7 +180,11 @@ export default async function ProductionPage(props: {
                         styles?.carouselBasis || "md:basis-1/2 lg:basis-1/3"
                       }`}
                     >
-                      <ImageLightbox imageUrl={imageUrl} index={index}>
+                      <ImageLightbox
+                        imageUrl={imageUrl}
+                        index={index}
+                        allImages={pageData.carouselImages}
+                      >
                         <Card
                           className={`bg-transparent flex items-center justify-center ${
                             styles?.cardHeight || "h-[400px]"
