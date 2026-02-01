@@ -3,7 +3,7 @@ name: Daily Vercel Build
 on:
   schedule:
     # Runs at 1:00 AM UTC daily
-    - cron: "0 1 * * *"
+    - cron: "9 8 * * *"
   workflow_dispatch: # Allows manual triggering
 
 jobs:
