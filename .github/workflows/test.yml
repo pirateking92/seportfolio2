@@ -2,7 +2,7 @@ name: Daily Vercel Build
 
 on:
   schedule:
-    - cron: "25 8 * * *"
+    - cron: "30 8 * * *"
   workflow_dispatch:
 
 jobs:
