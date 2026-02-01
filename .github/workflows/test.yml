@@ -1,11 +1,14 @@
 name: Daily Vercel Build
 
 on:
+  schedule:
+    - cron: "25 8 * * *"
   workflow_dispatch:
 
 jobs:
   trigger-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Test
-        run: echo "Testing"
+      - name: Trigger Vercel Deploy
+        run: |
+          curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}
