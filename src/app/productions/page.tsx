@@ -23,6 +23,7 @@ async function getProductionsData() {
     "wish-you-were-here",
     "daytime-deewane",
     "habibti-driver",
+    "great-expectations",
     "i-am-lysistrata",
     "trust",
     "attempts-on-her-life",
@@ -37,7 +38,7 @@ async function getProductionsData() {
           variables: { id: pageSlug },
         });
         return data.page;
-      })
+      }),
     );
     return data;
   } catch (error) {
