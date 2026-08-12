@@ -1,6 +1,6 @@
 // lenis-provider.tsx
 "use client";
-import { ReactLenis } from "@studio-freight/react-lenis";
+import { ReactLenis } from "lenis/react";
 import { FC, useRef } from "react";
 
 type LenisScrollProviderProps = {

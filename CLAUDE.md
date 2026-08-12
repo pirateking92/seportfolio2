@@ -22,6 +22,9 @@ build time.
 ## Deploy
 
 - Hosted on **Vercel**.
+- **Node.js:** pinned via `engines.node` (`">=24.0.0"`) in `package.json`, which overrides
+  Vercel's Project Settings and deploys on Node 24.x (20.x is deprecated on Vercel). The range
+  form (not `"24.x"`) avoids `EBADENGINE` warnings for local Node > 24.
 - Content is fetched at build time, so new WordPress content only appears after a rebuild.
   A **daily cron job** (external cron-job.org hitting a Vercel deploy hook) triggers a
   rebuild to pick up CMS changes. (A previous GitHub Action approach was removed — see
@@ -65,6 +68,29 @@ next/font `variable:` names and the `tailwind.config.ts` `fontFamily` entries in
 Note: `flowbite/dist/flowbite.css` is imported in `layout.tsx` and ships its own Tailwind
 preflight that sets `html { font-family: Inter, ... }` — this is the "stock" fallback you'll
 see if a font variable is undefined.
+
+### ⚠️ Production "stock font" bug = stale Vercel build cache (NOT a CSS bug)
+
+Symptom: the deployed site renders everything in Inter/system-ui even though `next dev` and
+a clean `npm run build` look correct. Root cause is a **next/font class-hash desync from a
+stale Vercel build cache**: `next/font` names its CSS-variable class with a content hash
+(e.g. `.__variable_c3bae4{--font-bodyfont:...}`) and stamps the same hash onto `<html>`'s
+`className`. With a stale build cache, the prerendered HTML keeps an OLD hash
+(`__variable_95d655`) while the CSS is regenerated with a NEW one (`__variable_c3bae4`). The
+applied class then defines nothing, `var(--font-bodyfont)` is undefined, the `body`
+font-family declaration becomes invalid, and body inherits `html`'s Inter → whole site looks
+"stock". The daily cron rebuild reuses Vercel's cache, so it stays broken across rebuilds.
+
+How to confirm: compare the `__variable_*` classes on `<html>` in the served HTML against the
+`.__variable_*{--font-*:...}` definitions in the served `/_next/static/css/*.css`. If they
+don't match, it's this bug. (A clean local `rm -rf .next && npm run build` always produces
+matching hashes.)
+
+Fix:
+1. **Immediate:** Vercel → Deployments → latest → ⋯ → **Redeploy** with **"Use existing Build
+   Cache" UNCHECKED**. Clean build → matching hashes → fonts fixed.
+2. **Prevent recurrence** (so the daily cron rebuild stays clean): set the project env var
+   **`VERCEL_FORCE_NO_BUILD_CACHE=1`** (Production). Slightly slower builds; fine for this site.
 
 ## Layout / mobile background
 
