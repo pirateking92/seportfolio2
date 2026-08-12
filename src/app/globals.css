@@ -16,6 +16,12 @@
   }
 }
 
+/* Dark base on the root so mobile overscroll / dynamic address-bar gaps
+   never expose the white browser canvas below the fixed body gradient. */
+html {
+  background-color: #000000;
+}
+
 body {
   font-family: var(--font-bodyfont), sans-serif; /* this applies the body font */
 }

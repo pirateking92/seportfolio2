@@ -79,7 +79,7 @@ export default async function RootLayout({
           />
         )}
       </head>
-      <body className="bg-black-to-navy flex flex-col min-h-screen bg-no-repeat bg-fixed">
+      <body className="bg-black-to-navy flex flex-col min-h-dvh bg-no-repeat bg-fixed">
         <LenisScrollProvider>
           <Navbar />
           <main className="flex-grow">{children}</main>

@@ -10,8 +10,8 @@ module.exports = {
   theme: {
   	extend: {
   		fontFamily: {
-  			headingFont: ["var(--font-headingFont)"],
-  			bodyFont: ["var(--font-bodyFont)"]
+  			headingFont: ["var(--font-headingFont)", "cursive"],
+  			bodyFont: ["var(--font-bodyfont)", "serif"]
   		},
   		animation: {
   			'fade-in': 'fade-in 0.3s ease-in-out',
