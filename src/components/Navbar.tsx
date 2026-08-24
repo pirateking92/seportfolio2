@@ -74,7 +74,7 @@ const Navbar = () => {
       }
       // Schedule the new animation frame
       animationFrameId.current = window.requestAnimationFrame(() =>
-        handleScroll()
+        handleScroll(),
       );
     };
 
@@ -121,7 +121,7 @@ const Navbar = () => {
         >
           <GradualSpacing
             className="font-bodyFont"
-            text="Sepy Baghaei | Director & Playwright"
+            text="Sepy Baghaei | Director"
           />
         </Link>
         <div className="hidden md:block">
