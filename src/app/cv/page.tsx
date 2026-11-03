@@ -2,6 +2,7 @@ import { GET_CV_PAGE } from "@/lib/queries";
 import client from "../../../apollo-client";
 import CVPage from "@/components/CVPage";
 import { Metadata } from "next";
+import { parseCV } from "@/lib/parseCV";
 
 // Generate metadata for SEO - this will help with page indexing and social sharing
 export async function generateMetadata(): Promise<Metadata> {
@@ -30,7 +31,7 @@ async function getCVData() {
 
     return {
       title: data.page.title || "Untitled",
-      content: data.page.content || "No content found",
+      sections: parseCV(data.page.content || ""),
     };
   } catch (error) {
     console.error("Error fetching CV data:", error);
