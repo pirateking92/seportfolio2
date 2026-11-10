@@ -34,7 +34,7 @@ function AboutSection({ title, content, profilePicture }) {
               {title}
             </h1>
             <div
-              className="prose-lg text-white"
+              className="prose-lg text-white lg:text-[20px]/[1.75] xl:text-[22px]/[1.75]"
               dangerouslySetInnerHTML={{ __html: content }}
             />
           </div>
