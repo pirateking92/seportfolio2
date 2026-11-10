@@ -62,7 +62,7 @@ export default function CVPage({ initialData }: CVPageProps) {
             {initialData.sections.map((section, s) => (
               <section key={s}>
                 {section.heading && (
-                  <h2 className="font-bodyFont text-sm md:text-base font-bold tracking-[0.2em] text-slate-200 border-b border-slate-500 pb-2 mb-2">
+                  <h2 className="font-bodyFont text-[15px] md:text-[17px] font-bold tracking-[0.2em] text-slate-300 border-b border-slate-500 pb-2 mb-2">
                     {section.heading}
                   </h2>
                 )}
