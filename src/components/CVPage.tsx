@@ -13,20 +13,25 @@ interface CVPageProps {
 }
 
 // One CV line laid out in columns: title | writer/adapter/role | venue.
-// Rows with 2 cells let the second cell span the middle + right columns, so it
-// still lines up with the middle column of 3-cell rows. Single-cell rows span all.
+// 2-cell rows: if the second cell is just a year (awards, some education), the
+// first cell spans the left two columns and the year sits in the right column,
+// lining up with venues/years above. Otherwise the second cell spans the middle +
+// right columns. Single-cell rows span all three.
 function CVRow({ cells }: { cells: string[] }) {
   const [first, ...rest] = cells;
+  const yearOnly = rest.length === 1 && /^\d{4}$/.test(rest[0].trim());
+  const firstSpan =
+    cells.length === 1 ? "md:col-span-3" : yearOnly ? "md:col-span-2" : "";
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-0.5 py-2 border-b border-slate-700/50 last:border-b-0">
       <div
-        className={`text-slate-200 ${cells.length === 1 ? "md:col-span-3" : ""}`}
+        className={`text-slate-200 ${firstSpan}`}
         dangerouslySetInnerHTML={{ __html: first }}
       />
       {rest.map((cell, i) => (
         <div
           key={i}
-          className={`text-slate-400 ${rest.length === 1 ? "md:col-span-2" : ""}`}
+          className={`text-slate-400 ${rest.length === 1 && !yearOnly ? "md:col-span-2" : ""}`}
           dangerouslySetInnerHTML={{ __html: cell }}
         />
       ))}
@@ -65,7 +70,7 @@ export default function CVPage({ initialData }: CVPageProps) {
                   item.type === "year" ? (
                     <h3
                       key={i}
-                      className="font-bodyFont text-sm font-semibold tracking-widest text-slate-500 pt-6 pb-1"
+                      className="font-bodyFont text-base md:text-lg font-semibold tracking-widest text-slate-400 pt-6 pb-1"
                     >
                       {item.text}
                     </h3>
