@@ -39,6 +39,13 @@ build time.
   WordPress and renders `CarouselClient` (Embla autoplay carousel of production images).
 - `src/app/productions/[...uri]/page.tsx` — individual production pages (dynamic catch-all).
 - `src/app/{about,contact,cv}/` — static-ish routes.
+- **CV page:** the WordPress CV is free-form `<p>` HTML. `src/lib/parseCV.ts` (run
+  server-side in `src/app/cv/page.tsx`) turns it into sections → year subheadings → rows of
+  cells, which `CVPage.tsx` lays out as a 3-column grid (title | writer/adapter/role | venue;
+  2-cell rows span the last two columns; stacks on mobile). It relies on the CMS conventions:
+  bold all-caps headings, bare-year paragraphs, `<strong>Title.</strong> Credit. Venue.`
+  rows, `–`-separated education rows, and awards ending in a year. Unrecognised lines fall
+  back to a full-width row, so nothing is dropped — tweak the parser if Sepy's formatting changes.
 - `src/lib/queries.ts` — GraphQL queries (e.g. `GET_PAGE_IMAGE_AND_CONTENT`).
 - `apollo-client.ts` (repo root) — Apollo client pointed at the WordPress GraphQL endpoint.
 - `src/components/` — UI. `ui/` holds shadcn-style primitives (carousel, etc.).
