@@ -74,7 +74,10 @@ next/font `variable:` names and the `tailwind.config.ts` `fontFamily` entries in
 
 Note: `flowbite/dist/flowbite.css` is imported in `layout.tsx` and ships its own Tailwind
 preflight that sets `html { font-family: Inter, ... }` — this is the "stock" fallback you'll
-see if a font variable is undefined.
+see if a font variable is undefined. It also ships its own copies of standard Tailwind
+utilities (e.g. `lg:text-xl`) that load **after** ours, so they override same-breakpoint
+utilities like `lg:leading-*`. If a size/leading combo doesn't apply, use arbitrary values
+Flowbite doesn't define, e.g. `lg:text-[20px]/[1.75]` (see `AboutSection.tsx`).
 
 ### ⚠️ Production "stock font" bug = stale Vercel build cache (NOT a CSS bug)
 
